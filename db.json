@@ -1,0 +1,852 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "name": "Youssef Ibrrahim",
+      "email": "yosefmohsen06@gmail.com",
+      "password": "password@123",
+      "role": "admin",
+      "department": "Engineering",
+      "otp": null
+    },
+    {
+      "id": "a1",
+      "name": "Admin Support",
+      "email": "support@company.com",
+      "password": "password123",
+      "role": "admin",
+      "department": "IT",
+      "otp": null
+    },
+    {
+      "id": "u2",
+      "name": "Mariam Tarek",
+      "email": "mariam.tarek@company.com",
+      "password": "password123",
+      "role": "user",
+      "department": "Product Design",
+      "otp": null
+    },
+    {
+      "id": "u3",
+      "name": "Omar Khaled",
+      "email": "omar.khaled@company.com",
+      "password": "password123",
+      "role": "user",
+      "department": "DevOps",
+      "otp": "968751"
+    },
+    {
+      "id": "u4",
+      "name": "Nour El-Din",
+      "email": "nour.eldin@company.com",
+      "password": "password123",
+      "role": "user",
+      "department": "QA",
+      "otp": null
+    },
+    {
+      "name": "antritos",
+      "email": "antritospotatos@gmail.com",
+      "password": "H!c5xuF7Q6mpSDM",
+      "role": "user",
+      "id": "tTtfPPXP8OA",
+      "otp": null
+    }
+  ],
+  "categories": [
+    {
+      "id": "c1",
+      "name": "Equipment Return",
+      "description": "Returning company assets (Laptops, Monitors, etc.)"
+    },
+    {
+      "id": "c2",
+      "name": "Hardware Request",
+      "description": "Requesting new equipment"
+    },
+    {
+      "id": "c3",
+      "name": "Software Access",
+      "description": "VPN, Email, or internal tools access"
+    },
+    {
+      "id": "c4",
+      "name": "Component Issue",
+      "description": "Hardware malfunctions requiring IT inspection"
+    }
+  ],
+  "assets": [
+    {
+      "id": "ast-101",
+      "userId": "tTtfPPXP8OA",
+      "name": "MacBook Pro M2",
+      "serialNumber": "C02F123456",
+      "type": "Laptop",
+      "status": "assigned"
+    },
+    {
+      "id": "ast-102",
+      "userId": "u1",
+      "name": "Dell UltraSharp 27",
+      "serialNumber": "DL98765432",
+      "type": "Monitor",
+      "status": "assigned"
+    },
+    {
+      "id": "ast-103",
+      "userId": "a1",
+      "name": "ThinkPad T14s Gen 4",
+      "serialNumber": "PF3X90112A",
+      "type": "Laptop",
+      "status": "assigned"
+    },
+    {
+      "id": "ast-104",
+      "userId": "u2",
+      "name": "MacBook Pro M3 Max",
+      "serialNumber": "C02G876543",
+      "type": "Laptop",
+      "status": "assigned"
+    },
+    {
+      "id": "ast-105",
+      "userId": "u2",
+      "name": "Apple Studio Display 27",
+      "serialNumber": "AP55443322",
+      "type": "Monitor",
+      "status": "assigned"
+    },
+    {
+      "id": "ast-106",
+      "userId": "u3",
+      "name": "Dell Precision 5680",
+      "serialNumber": "DL44119900",
+      "type": "Laptop",
+      "status": "assigned"
+    },
+    {
+      "id": "ast-107",
+      "userId": "u3",
+      "name": "YubiKey 5C NFC",
+      "serialNumber": "YK99887711",
+      "type": "Security Key",
+      "status": "returned"
+    },
+    {
+      "id": "ast-108",
+      "userId": "u4",
+      "name": "HP EliteBook 840 G10",
+      "serialNumber": "HP22334455",
+      "type": "Laptop",
+      "status": "assigned"
+    },
+    {
+      "id": "ast-109",
+      "userId": "u4",
+      "name": "iPad Air 5th Gen (Test Device)",
+      "serialNumber": "DM55667788",
+      "type": "Tablet",
+      "status": "assigned"
+    },
+    {
+      "name": "logitech g703",
+      "serialNumber": "qweasdasdx",
+      "type": "Mice",
+      "userId": "u3",
+      "status": "returned",
+      "id": "GPqQIU8f850"
+    }
+  ],
+  "tickets": [
+    {
+      "id": "t1",
+      "title": "Return Defective MacBook",
+      "description": "The screen is flickering constantly. Need to return and replace.",
+      "status": "open",
+      "priority": "high",
+      "categoryId": "c1",
+      "creatorId": "u1",
+      "assigneeId": null,
+      "assetId": "ast-101",
+      "createdAt": "2026-09-19T09:00:00Z",
+      "updatedAt": "2026-09-19T09:00:00Z"
+    },
+    {
+      "id": "t2",
+      "title": "Need access to Figma Enterprise",
+      "description": "Please upgrade my account for the new UI project.",
+      "status": "in_progress",
+      "priority": "medium",
+      "categoryId": "c3",
+      "creatorId": "u1",
+      "assigneeId": "a1",
+      "assetId": null,
+      "createdAt": "2026-09-18T14:30:00Z",
+      "updatedAt": "2026-09-19T10:15:00Z"
+    },
+    {
+      "id": "t3",
+      "title": "Monitor keeps turning off",
+      "description": "My external monitor randomly shuts down every 10 minutes.",
+      "status": "in_progress",
+      "priority": "high",
+      "categoryId": "c4",
+      "creatorId": "u1",
+      "assigneeId": "a1",
+      "assetId": "ast-102",
+      "createdAt": "2026-09-19T10:00:00Z",
+      "updatedAt": "2026-09-19T11:30:00Z"
+    },
+    {
+      "id": "t4",
+      "title": "Internal Diagnostic Asset Calibration",
+      "description": "Routine hardware scan and firmware update check for IT operational unit.",
+      "status": "resolved",
+      "priority": "low",
+      "categoryId": "c4",
+      "creatorId": "a1",
+      "assigneeId": "a1",
+      "assetId": "ast-103",
+      "createdAt": "2026-09-17T08:00:00Z",
+      "updatedAt": "2026-09-18T16:00:00Z"
+    },
+    {
+      "id": "t5",
+      "title": "Studio Display Color Calibration Error",
+      "description": "P3 wide color gamut profile resets after restart. Need hardware check.",
+      "status": "open",
+      "priority": "medium",
+      "categoryId": "c4",
+      "creatorId": "u2",
+      "assigneeId": "a1",
+      "assetId": "ast-105",
+      "createdAt": "2026-09-21T11:00:00Z",
+      "updatedAt": "2026-09-21T11:00:00Z"
+    },
+    {
+      "id": "t6",
+      "title": "YubiKey Hardware Malfunction",
+      "description": "USB-C contact seems loose; intermittent disconnections during IAM auth.",
+      "status": "in_progress",
+      "priority": "urgent",
+      "categoryId": "c4",
+      "creatorId": "u3",
+      "assigneeId": null,
+      "assetId": "ast-107",
+      "createdAt": "2026-09-22T08:15:00Z",
+      "updatedAt": "2026-09-22T08:15:00Z"
+    },
+    {
+      "id": "t7",
+      "title": "Battery Degradation Warning on EliteBook",
+      "description": "OS displays 'Service Battery' prompt; runtime drops below 40 minutes on battery power.",
+      "status": "in_progress",
+      "priority": "high",
+      "categoryId": "c4",
+      "creatorId": "u4",
+      "assigneeId": "u2",
+      "assetId": "ast-108",
+      "createdAt": "2026-09-23T07:45:00Z",
+      "updatedAt": "2026-09-23T08:30:00Z"
+    },
+    {
+      "title": "teeeeeeeeeeeeeest",
+      "description": "teeeeeeeeeeeeeest",
+      "categoryId": "c2",
+      "assetId": "ast-104",
+      "creatorId": "u2",
+      "status": "open",
+      "priority": "medium",
+      "id": "pG57jZyecsE",
+      "createdAt": "2026-09-24T09:00:00Z",
+      "updatedAt": "2026-09-24T09:00:00Z"
+    },
+    {
+      "title": "asdad",
+      "description": "asdasdasdasdas",
+      "categoryId": "c2",
+      "priority": "high",
+      "assetId": "ast-106",
+      "creatorId": "u3",
+      "status": "closed",
+      "id": "yRS-zB5AtmA",
+      "createdAt": "2026-09-24T10:00:00Z",
+      "updatedAt": "2026-09-25T14:32:20Z"
+    },
+    {
+      "title": "4324",
+      "description": "qweqqqqqqqqqqqqq",
+      "categoryId": "c1",
+      "priority": "urgent",
+      "assetId": "GPqQIU8f850",
+      "creatorId": "u3",
+      "status": "open",
+      "id": "p5Q2gtn9OPE",
+      "createdAt": "2026-09-25T14:41:52Z",
+      "updatedAt": "2026-09-25T14:41:52Z"
+    },
+    {
+      "title": "last check",
+      "description": "last check",
+      "categoryId": "c3",
+      "priority": "medium",
+      "assetId": "GPqQIU8f850",
+      "creatorId": "u3",
+      "status": "open",
+      "createdAt": "2026-09-25T17:18:06.772Z",
+      "updatedAt": "2026-09-25T17:18:06.772Z",
+      "id": "-o-fmPWyTCY"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "apt-1",
+      "ticketId": "t3",
+      "technicianId": "a1",
+      "userId": "u1",
+      "scheduledAt": "2026-09-20T14:00:00Z",
+      "durationMinutes": 30,
+      "location": "Desk 4B / Remote",
+      "status": "completed",
+      "notes": "Will bring a spare DisplayPort cable"
+    },
+    {
+      "id": "apt-2",
+      "ticketId": "t7",
+      "technicianId": "a1",
+      "userId": "u4",
+      "scheduledAt": "2026-09-24T10:00:00Z",
+      "durationMinutes": 45,
+      "location": "IT Helpdesk Room 102",
+      "status": "completed",
+      "notes": "Battery module diagnostic and potential replacement"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "conv-1",
+      "participants": [
+        "u1",
+        "a1"
+      ],
+      "lastMessage": "Sounds good, I'll test the new cable today.",
+      "updatedAt": "2026-09-20T16:35:00Z"
+    },
+    {
+      "id": "conv-2",
+      "participants": [
+        "u2",
+        "a1"
+      ],
+      "lastMessage": "Could you share the firmware version currently running on the display?",
+      "updatedAt": "2026-09-21T11:45:00Z"
+    },
+    {
+      "id": "conv-3",
+      "participants": [
+        "u3",
+        "a1"
+      ],
+      "lastMessage": "thank you for that",
+      "updatedAt": "2026-09-24T17:23:09.398Z"
+    },
+    {
+      "id": "conv-4",
+      "participants": [
+        "u4",
+        "a1"
+      ],
+      "lastMessage": "Understood, I will bring the EliteBook charger with me tomorrow.",
+      "updatedAt": "2026-09-23T09:15:00Z"
+    },
+    {
+      "id": "conv-5",
+      "participants": [
+        "u1",
+        "u2"
+      ],
+      "lastMessage": "jj",
+      "updatedAt": "2026-09-25T20:09:39.277Z"
+    },
+    {
+      "participants": [
+        "a1",
+        "tTtfPPXP8OA"
+      ],
+      "lastMessage": "",
+      "updatedAt": "2026-09-24T20:52:36.092Z",
+      "id": "sXymebmKlzE"
+    },
+    {
+      "participants": [
+        "u3",
+        "u1"
+      ],
+      "lastMessage": "poooooo",
+      "updatedAt": "2026-09-25T16:58:28.222Z",
+      "id": "l1JcCr9W3J0"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "conversationId": "conv-1",
+      "senderId": "u1",
+      "text": "Hello, is the replacement cable available?",
+      "createdAt": "2026-09-20T16:30:00Z",
+      "isRead": true
+    },
+    {
+      "id": "m2",
+      "conversationId": "conv-1",
+      "senderId": "a1",
+      "text": "Hi Youssef, yes I added it to our appointment notes.",
+      "createdAt": "2026-09-20T16:32:00Z",
+      "isRead": true
+    },
+    {
+      "id": "m3",
+      "conversationId": "conv-1",
+      "senderId": "u1",
+      "text": "Sounds good, I'll test the new cable today.",
+      "createdAt": "2026-09-20T16:35:00Z",
+      "isRead": true
+    },
+    {
+      "id": "m4",
+      "conversationId": "conv-2",
+      "senderId": "u2",
+      "text": "Hi Support, my Studio Display color profile keeps dropping after wake.",
+      "createdAt": "2026-09-21T11:30:00Z",
+      "isRead": true
+    },
+    {
+      "id": "m5",
+      "conversationId": "conv-2",
+      "senderId": "a1",
+      "text": "Could you share the firmware version currently running on the display?",
+      "createdAt": "2026-09-21T11:45:00Z",
+      "isRead": true
+    },
+    {
+      "id": "m6",
+      "conversationId": "conv-3",
+      "senderId": "u3",
+      "text": "Hi, ticket t6 created. YubiKey is completely loose and failing sudo auth.",
+      "createdAt": "2026-09-22T08:20:00Z",
+      "isRead": true
+    },
+    {
+      "id": "m7",
+      "conversationId": "conv-3",
+      "senderId": "a1",
+      "text": "I have set aside a backup YubiKey for you at the front desk.",
+      "createdAt": "2026-09-22T08:40:00Z",
+      "isRead": true
+    },
+    {
+      "id": "m8",
+      "conversationId": "conv-4",
+      "senderId": "a1",
+      "text": "Please bring the charger along to the desk tomorrow.",
+      "createdAt": "2026-09-23T09:00:00Z",
+      "isRead": true
+    },
+    {
+      "id": "m9",
+      "conversationId": "conv-4",
+      "senderId": "u4",
+      "text": "Understood, I will bring the EliteBook charger with me tomorrow.",
+      "createdAt": "2026-09-23T09:15:00Z",
+      "isRead": true
+    },
+    {
+      "id": "m10",
+      "conversationId": "conv-5",
+      "senderId": "u1",
+      "text": "Check the latest Figma tokens update when you get a chance.",
+      "createdAt": "2026-09-23T14:10:00Z",
+      "isRead": true
+    },
+    {
+      "conversationId": "conv-1",
+      "senderId": "u1",
+      "text": "hi",
+      "createdAt": "2026-09-23T19:29:02.629Z",
+      "isRead": true,
+      "id": "hb0rQ_8BnhU"
+    },
+    {
+      "conversationId": "conv-1",
+      "senderId": "u1",
+      "text": "sad",
+      "createdAt": "2026-09-23T19:35:18.578Z",
+      "isRead": true,
+      "id": "awVAk31o5Mo"
+    },
+    {
+      "conversationId": "conv-1",
+      "senderId": "u1",
+      "text": "sadd",
+      "createdAt": "2026-09-23T19:35:33.975Z",
+      "isRead": true,
+      "id": "XpISAwZHT0I"
+    },
+    {
+      "conversationId": "conv-1",
+      "senderId": "u1",
+      "text": "xcvxcvxc",
+      "createdAt": "2026-09-23T19:35:38.367Z",
+      "isRead": true,
+      "id": "In1AHb-a6hY"
+    },
+    {
+      "conversationId": "conv-5",
+      "senderId": "u1",
+      "text": "wqeqwe",
+      "createdAt": "2026-09-23T19:36:32.133Z",
+      "isRead": true,
+      "id": "6ascZH7a0Vo"
+    },
+    {
+      "conversationId": "conv-5",
+      "senderId": "u1",
+      "text": "hh",
+      "createdAt": "2026-09-23T19:42:14.860Z",
+      "isRead": true,
+      "id": "dD94I-MIWls"
+    },
+    {
+      "conversationId": "conv-5",
+      "senderId": "u2",
+      "text": "hey",
+      "createdAt": "2026-09-23T19:43:24.389Z",
+      "isRead": true,
+      "id": "9mkkTWo9iac"
+    },
+    {
+      "conversationId": "conv-5",
+      "senderId": "u1",
+      "text": "how are you?",
+      "createdAt": "2026-09-23T19:43:36.467Z",
+      "isRead": true,
+      "id": "dSlA1tBy6Hs"
+    },
+    {
+      "conversationId": "conv-5",
+      "senderId": "u2",
+      "text": "i am fine what about you",
+      "createdAt": "2026-09-23T19:44:07.533Z",
+      "isRead": true,
+      "id": "P6BfUkWB0Ew"
+    },
+    {
+      "conversationId": "conv-5",
+      "senderId": "u1",
+      "text": "great to hear",
+      "createdAt": "2026-09-23T19:44:15.827Z",
+      "isRead": true,
+      "id": "udOVKcmT8yM"
+    },
+    {
+      "conversationId": "conv-3",
+      "senderId": "u3",
+      "text": "thank you for that",
+      "createdAt": "2026-09-24T17:23:09.386Z",
+      "isRead": true,
+      "id": "yu6DHZXrQoA"
+    },
+    {
+      "conversationId": "l1JcCr9W3J0",
+      "senderId": "u3",
+      "text": "hey",
+      "createdAt": "2026-09-25T14:11:57.343Z",
+      "isRead": true,
+      "id": "0YKvsPKN-Ds"
+    },
+    {
+      "conversationId": "l1JcCr9W3J0",
+      "senderId": "u1",
+      "text": "hey omar how are you",
+      "createdAt": "2026-09-25T14:12:10.260Z",
+      "isRead": true,
+      "id": "1INHkuoyHdg"
+    },
+    {
+      "conversationId": "l1JcCr9W3J0",
+      "senderId": "u3",
+      "text": "fooo",
+      "createdAt": "2026-09-25T16:58:23.341Z",
+      "isRead": true,
+      "id": "cuvvOI-BhkM"
+    },
+    {
+      "conversationId": "l1JcCr9W3J0",
+      "senderId": "u1",
+      "text": "poooooo",
+      "createdAt": "2026-09-25T16:58:28.209Z",
+      "isRead": true,
+      "id": "I1SexXkcI64"
+    },
+    {
+      "conversationId": "conv-5",
+      "senderId": "u1",
+      "text": "jj",
+      "createdAt": "2026-09-25T20:09:39.262Z",
+      "isRead": false,
+      "id": "jpL9pQOmiyM"
+    }
+  ],
+  "ticketMessages": [
+    {
+      "id": "tm1",
+      "ticketId": "t1",
+      "senderId": "u1",
+      "text": "The screen flickers constantly and sometimes goes black for a few seconds.",
+      "createdAt": "2026-09-19T09:05:00Z"
+    },
+    {
+      "id": "tm2",
+      "ticketId": "t3",
+      "senderId": "u1",
+      "text": "My external monitor shuts down every 10 minutes during calls.",
+      "createdAt": "2026-09-19T10:05:00Z"
+    },
+    {
+      "id": "tm3",
+      "ticketId": "t3",
+      "senderId": "a1",
+      "text": "Could you confirm the cable type and whether it also happens on battery?",
+      "createdAt": "2026-09-19T10:12:00Z"
+    },
+    {
+      "id": "tm4",
+      "ticketId": "t3",
+      "senderId": "u1",
+      "text": "It's DisplayPort and it happens even when plugged in. I've attached the error log.",
+      "createdAt": "2026-09-19T10:20:00Z",
+      "attachment": "monitor-error.log"
+    },
+    {
+      "id": "tm5",
+      "ticketId": "t3",
+      "senderId": "a1",
+      "text": "Thanks — I've scheduled a desk visit for tomorrow morning.",
+      "createdAt": "2026-09-19T11:30:00Z"
+    },
+    {
+      "id": "tm6",
+      "ticketId": "t5",
+      "senderId": "u2",
+      "text": "The P3 color profile resets every time the display wakes from sleep.",
+      "createdAt": "2026-09-21T11:05:00Z"
+    },
+    {
+      "id": "tm7",
+      "ticketId": "t5",
+      "senderId": "a1",
+      "text": "Which firmware version is currently running on the display?",
+      "createdAt": "2026-09-21T11:45:00Z"
+    },
+    {
+      "id": "tm8",
+      "ticketId": "t6",
+      "senderId": "u3",
+      "text": "The USB-C contact is loose and it disconnects during IAM auth.",
+      "createdAt": "2026-09-22T08:20:00Z"
+    },
+    {
+      "id": "tm9",
+      "ticketId": "t6",
+      "senderId": "u3",
+      "text": "Here's a short clip of the issue happening.",
+      "createdAt": "2026-09-22T08:22:00Z",
+      "attachment": "yubikey-issue.mp4"
+    },
+    {
+      "id": "tm10",
+      "ticketId": "t7",
+      "senderId": "u4",
+      "text": "Battery runtime drops below 40 minutes and the OS shows 'Service Battery'.",
+      "createdAt": "2026-09-23T07:50:00Z"
+    },
+    {
+      "id": "tm11",
+      "ticketId": "t7",
+      "senderId": "a1",
+      "text": "I've ordered a replacement battery module and booked an appointment for you.",
+      "createdAt": "2026-09-23T08:30:00Z"
+    },
+    {
+      "ticketId": "t6",
+      "senderId": "u1",
+      "text": "hi",
+      "createdAt": "2026-09-25T14:09:07.651Z",
+      "id": "MkqSm22PACw"
+    },
+    {
+      "ticketId": "t6",
+      "senderId": "u1",
+      "text": "thank you for all the info and  we are doing our best",
+      "createdAt": "2026-09-25T14:10:27.446Z",
+      "id": "DY16Iij645I"
+    },
+    {
+      "ticketId": "t6",
+      "senderId": "u1",
+      "text": "xd",
+      "createdAt": "2026-09-25T14:10:46.483Z",
+      "id": "8UFUvFQTE7Y"
+    },
+    {
+      "ticketId": "t6",
+      "senderId": "u1",
+      "text": "dd",
+      "createdAt": "2026-09-25T14:13:56.113Z",
+      "id": "-ylbUWgRnJk"
+    },
+    {
+      "ticketId": "t6",
+      "senderId": "u3",
+      "text": "gg",
+      "createdAt": "2026-09-25T14:14:00.638Z",
+      "id": "IeGcXzgmd6c"
+    }
+  ],
+  "ticketActivity": [
+    {
+      "id": "ta1",
+      "ticketId": "t1",
+      "action": "Ticket created",
+      "createdAt": "2026-09-19T09:00:00Z"
+    },
+    {
+      "id": "ta2",
+      "ticketId": "t3",
+      "action": "Ticket created",
+      "createdAt": "2026-09-19T10:00:00Z"
+    },
+    {
+      "id": "ta3",
+      "ticketId": "t3",
+      "action": "Assigned to Admin Support",
+      "createdAt": "2026-09-19T10:10:00Z"
+    },
+    {
+      "id": "ta4",
+      "ticketId": "t3",
+      "action": "Status changed from open to in progress",
+      "createdAt": "2026-09-19T11:00:00Z"
+    },
+    {
+      "id": "ta5",
+      "ticketId": "t5",
+      "action": "Ticket created",
+      "createdAt": "2026-09-21T11:00:00Z"
+    },
+    {
+      "id": "ta6",
+      "ticketId": "t6",
+      "action": "Ticket created",
+      "createdAt": "2026-09-22T08:15:00Z"
+    },
+    {
+      "id": "ta7",
+      "ticketId": "t6",
+      "action": "Priority set to urgent",
+      "createdAt": "2026-09-22T08:16:00Z"
+    },
+    {
+      "id": "ta8",
+      "ticketId": "t7",
+      "action": "Ticket created",
+      "createdAt": "2026-09-23T07:45:00Z"
+    },
+    {
+      "id": "ta9",
+      "ticketId": "t7",
+      "action": "Appointment scheduled",
+      "createdAt": "2026-09-23T08:30:00Z"
+    },
+    {
+      "ticketId": "t7",
+      "action": "Assigned to Youssef Mohsen",
+      "createdAt": "2026-09-25T12:46:23.113Z",
+      "id": "2thlDb9fceo"
+    },
+    {
+      "ticketId": "t7",
+      "action": "Assigned to Mariam Tarek",
+      "createdAt": "2026-09-25T12:51:17.852Z",
+      "id": "P4Vbzm-qzkI"
+    },
+    {
+      "ticketId": "t6",
+      "action": "Youssef Mohsen replied",
+      "createdAt": "2026-09-25T14:09:07.668Z",
+      "id": "xOin8XGBdek"
+    },
+    {
+      "ticketId": "t6",
+      "action": "Youssef Mohsen replied",
+      "createdAt": "2026-09-25T14:10:27.461Z",
+      "id": "QdgEgawvQAs"
+    },
+    {
+      "ticketId": "t6",
+      "action": "Youssef Mohsen replied",
+      "createdAt": "2026-09-25T14:10:46.499Z",
+      "id": "S3inlMNesGU"
+    },
+    {
+      "ticketId": "yRS-zB5AtmA",
+      "action": "Ticket created",
+      "createdAt": "2026-09-25T14:13:37.524Z",
+      "id": "Eca0hYpG83k"
+    },
+    {
+      "ticketId": "t6",
+      "action": "Youssef Mohsen replied",
+      "createdAt": "2026-09-25T14:13:56.132Z",
+      "id": "vHbnghm3Q70"
+    },
+    {
+      "ticketId": "t6",
+      "action": "Omar Khaled replied",
+      "createdAt": "2026-09-25T14:14:00.653Z",
+      "id": "2Gdw71P98VQ"
+    },
+    {
+      "ticketId": "yRS-zB5AtmA",
+      "action": "Status changed from Open to Closed",
+      "createdAt": "2026-09-25T14:32:20.829Z",
+      "id": "vVmC1wyDeME"
+    },
+    {
+      "ticketId": "t6",
+      "action": "Status changed from Open to In progress",
+      "createdAt": "2026-09-25T14:32:49.107Z",
+      "id": "dGitqAzQxm4"
+    },
+    {
+      "ticketId": "p5Q2gtn9OPE",
+      "action": "Ticket created",
+      "createdAt": "2026-09-25T14:41:52.082Z",
+      "id": "rioAJVAr0T4"
+    },
+    {
+      "ticketId": null,
+      "action": "Ticket created",
+      "createdAt": "2026-09-25T17:02:54.017Z",
+      "id": "iya5x3Qklvs"
+    },
+    {
+      "ticketId": "-o-fmPWyTCY",
+      "action": "Ticket created",
+      "createdAt": "2026-09-25T17:18:06.792Z",
+      "id": "OFIAageFiAk"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
