@@ -11,14 +11,6 @@
 
 ---
 
-## 📸 Screenshots & Demos
-
-<!-- Add your actual project screenshots or GIFs inside an /assets directory in your repo -->
-
-| :---: | :---: |
-| ![Login View](screenshots/login.png) | *(Login with OTP)* |
-
----
 
 ## ⚡ Key Highlights & Engineering Features
 
