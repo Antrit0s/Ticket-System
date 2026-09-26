@@ -14,9 +14,9 @@
 ## 📸 Screenshots & Demos
 
 <!-- Add your actual project screenshots or GIFs inside an /assets directory in your repo -->
-| Admin Authentication & Portal | Ticket Details & Operational Timeline |
+
 | :---: | :---: |
-| ![Login View](screenshots/login.png) | *(Add ticket details screenshot here)* |
+| ![Login View](screenshots/login.png) | *(Login with OTP)* |
 
 ---
 
