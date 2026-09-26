@@ -1,11 +1,6 @@
-// RTK Query errors bury the message in data.message — surface it.
+type ApiError = { data?: { message?: string } };
+
 export function getErrorMessage(error: unknown): string {
-  if (error && typeof error === "object" && "data" in error) {
-    const data = (error as { data?: unknown }).data;
-    if (data && typeof data === "object" && "message" in data) {
-      const message = (data as { message?: unknown }).message;
-      if (typeof message === "string") return message;
-    }
-  }
-  return "Something went wrong. Please try again.";
+  const err = error as ApiError;
+  return err?.data?.message ?? "Something went wrong. Please try again.";
 }

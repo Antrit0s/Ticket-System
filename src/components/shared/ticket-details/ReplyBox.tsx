@@ -13,6 +13,7 @@ export default function ReplyBox({ value, onChange, onSend, isSending }: Props) 
       <TextField
         fullWidth
         size="small"
+        multiline
         placeholder="Write a reply"
         value={value}
         onChange={(event) => onChange(event.target.value)}

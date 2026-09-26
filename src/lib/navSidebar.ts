@@ -19,7 +19,6 @@ export interface NavItem {
   icon: ElementType;
 }
 
-// Sidebar links per role.
 export const navItems: Record<UserRole, NavItem[]> = {
   user: [
     { label: "Overview", path: "/dashboard", icon: Dashboard },
@@ -38,7 +37,6 @@ export const navItems: Record<UserRole, NavItem[]> = {
   ],
 };
 
-// Where a role lands after login / on unauthorized redirect.
 export function getHomePath(role?: UserRole): string {
   return role === "admin" ? "/admin" : "/dashboard";
 }

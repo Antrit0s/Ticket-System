@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../lib/hooks";
 import { useGetAssetsQuery } from "../../features/assets/assetsApi";
 
-// A card grid of the equipment assigned to the logged-in user.
 export default function MyAssetsPage() {
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.authSlice.user);

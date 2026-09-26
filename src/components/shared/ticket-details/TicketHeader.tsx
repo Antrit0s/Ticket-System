@@ -51,6 +51,9 @@ export default function TicketHeader({
         >
           {ticket.title}
         </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+          {ticket.description}
+        </Typography>
         <Box
           sx={{
             display: "flex",

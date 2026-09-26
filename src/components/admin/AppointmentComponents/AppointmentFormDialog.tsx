@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "react-toastify";
@@ -14,14 +14,14 @@ import {
 } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
+import type { Appointment } from "../../../types/index.ts";
 import {
   useCreateAppointmentMutation,
   useUpdateAppointmentMutation,
-} from "../../features/appointments/appointmentsApi";
-import { useGetTicketsQuery } from "../../features/tickets/ticketsApi";
-import { useGetUsersQuery } from "../../features/users/usersApi";
-import { getErrorMessage } from "../../lib/errorMessage";
-import type { Appointment } from "../../types";
+} from "../../../features/appointments/appointmentsApi.ts";
+import { useGetTicketsQuery } from "../../../features/tickets/ticketsApi.ts";
+import { useGetUsersQuery } from "../../../features/users/usersApi.ts";
+import { getErrorMessage } from "../../../lib/errorMessage.ts";
 
 const schema = z.object({
   ticketId: z.string().min(1, "Pick a ticket"),
@@ -44,15 +44,16 @@ interface Props {
   initialAppointment?: Appointment | null;
 }
 
-// Dialog for admins to schedule or edit an appointment for a ticket.
 export default function AppointmentFormDialog({
   open,
   onClose,
   defaultTicketId,
   initialAppointment,
 }: Props) {
-  const [createAppointment, { isLoading: isCreating }] = useCreateAppointmentMutation();
-  const [updateAppointment, { isLoading: isUpdating }] = useUpdateAppointmentMutation();
+  const [createAppointment, { isLoading: isCreating }] =
+    useCreateAppointmentMutation();
+  const [updateAppointment, { isLoading: isUpdating }] =
+    useUpdateAppointmentMutation();
   const { data: tickets = [] } = useGetTicketsQuery();
   const { data: users = [] } = useGetUsersQuery();
 
@@ -65,7 +66,7 @@ export default function AppointmentFormDialog({
       ticket.id === initialAppointment?.ticketId,
   );
 
-  const { control, handleSubmit, watch, reset } = useForm<FormValues>({
+  const { control, handleSubmit, reset } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
       ticketId: defaultTicketId ?? "",
@@ -81,7 +82,9 @@ export default function AppointmentFormDialog({
     if (open) {
       if (initialAppointment) {
         // Convert ISO scheduledAt to a local datetime string (YYYY-MM-DDTHH:mm).
-        const formattedDate = dayjs(initialAppointment.scheduledAt).format("YYYY-MM-DDTHH:mm");
+        const formattedDate = dayjs(initialAppointment.scheduledAt).format(
+          "YYYY-MM-DDTHH:mm",
+        );
 
         reset({
           ticketId: initialAppointment.ticketId,
@@ -103,8 +106,10 @@ export default function AppointmentFormDialog({
       }
     }
   }, [open, initialAppointment, defaultTicketId, reset]);
-
-  const selectedTicket = tickets.find((ticket) => ticket.id === watch("ticketId"));
+  const selectedTicketId = useWatch({ control, name: "ticketId" });
+  const selectedTicket = tickets.find(
+    (ticket) => ticket.id === selectedTicketId,
+  );
 
   const onSubmit = async (values: FormValues) => {
     if (!selectedTicket) return;
@@ -115,7 +120,10 @@ export default function AppointmentFormDialog({
         patch: {
           ticketId: values.ticketId,
           technicianId: values.technicianId,
-          scheduledAt: dayjs(values.scheduledAt, "YYYY-MM-DDTHH:mm").toISOString(),
+          scheduledAt: dayjs(
+            values.scheduledAt,
+            "YYYY-MM-DDTHH:mm",
+          ).toISOString(),
           durationMinutes: Number(values.durationMinutes),
           location: values.location,
           notes: values.notes || undefined,
@@ -132,7 +140,10 @@ export default function AppointmentFormDialog({
         ticketId: values.ticketId,
         technicianId: values.technicianId,
         userId: selectedTicket.creatorId,
-        scheduledAt: dayjs(values.scheduledAt, "YYYY-MM-DDTHH:mm").toISOString(),
+        scheduledAt: dayjs(
+          values.scheduledAt,
+          "YYYY-MM-DDTHH:mm",
+        ).toISOString(),
         durationMinutes: Number(values.durationMinutes),
         location: values.location,
         notes: values.notes || undefined,
@@ -208,9 +219,13 @@ export default function AppointmentFormDialog({
             render={({ field, fieldState }) => (
               <DateTimePicker
                 label="Date & time"
-                value={field.value ? dayjs(field.value, "YYYY-MM-DDTHH:mm") : null}
+                value={
+                  field.value ? dayjs(field.value, "YYYY-MM-DDTHH:mm") : null
+                }
                 onChange={(newValue) =>
-                  field.onChange(newValue ? newValue.format("YYYY-MM-DDTHH:mm") : "")
+                  field.onChange(
+                    newValue ? newValue.format("YYYY-MM-DDTHH:mm") : "",
+                  )
                 }
                 ampm={false}
                 slotProps={{
@@ -254,7 +269,13 @@ export default function AppointmentFormDialog({
             name="notes"
             control={control}
             render={({ field }) => (
-              <TextField {...field} label="Notes" multiline rows={2} fullWidth />
+              <TextField
+                {...field}
+                label="Notes"
+                multiline
+                rows={2}
+                fullWidth
+              />
             )}
           />
 

@@ -1,7 +1,6 @@
 import { Chip, useTheme } from "@mui/material";
 import type { Ticket } from "../../types";
 
-// Small pastel pills used across the tickets screens.
 export function StatusChip({ status }: { status: Ticket["status"] }) {
   const theme = useTheme();
   const colors = theme.palette.customStatus[status] ?? {

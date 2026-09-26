@@ -8,9 +8,7 @@ interface Props {
   allowedRoles?: UserRole[];
 }
 
-// Guards the protected pages. If there is no logged-in user, send them to the
-// auth screen. If the user's role isn't allowed for this area, send them to
-// their own home with a toast.
+
 export default function ProtectedRoute({ allowedRoles }: Props) {
   const user = useAppSelector((state) => state.authSlice.user);
 

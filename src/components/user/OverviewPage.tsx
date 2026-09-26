@@ -2,8 +2,20 @@ import { Alert, Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { useAppSelector } from "../../lib/hooks";
 import { useGetTicketsQuery } from "../../features/tickets/ticketsApi";
 import { useGetAssetsQuery } from "../../features/assets/assetsApi";
+import { startUserTour } from "../../lib/userTour.ts";
+import { useEffect } from "react";
 
 export default function OverviewPage() {
+  //one user login trigger tour
+  useEffect(() => {
+    if (sessionStorage.getItem("justLoggedIn") === "true") {
+      sessionStorage.removeItem("justLoggedIn");
+
+      setTimeout(() => {
+        startUserTour();
+      }, 150);
+    }
+  }, []);
   const user = useAppSelector((state) => state.authSlice.user);
   const { data: tickets = [], isError: ticketsError } = useGetTicketsQuery(
     user ? { creatorId: user.id } : undefined,

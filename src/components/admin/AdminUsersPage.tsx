@@ -27,9 +27,6 @@ interface PendingChange {
   role: UserRole;
 }
 
-// Admin page to view all users and manage their roles (user/admin).
-// Role changes only happen through the "Change role" button at the top —
-// the table is read-only now, so there's just one place this can happen.
 export default function AdminUsersPage() {
   const { data: users = [], isLoading } = useGetUsersQuery();
   const [updateUserRole] = useUpdateUserRoleMutation();

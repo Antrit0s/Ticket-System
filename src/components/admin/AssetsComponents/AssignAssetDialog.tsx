@@ -11,9 +11,10 @@ import {
   Select,
 } from "@mui/material";
 import { toast } from "react-toastify";
-import { useUpdateAssetMutation } from "../../features/assets/assetsApi";
-import { useGetUsersQuery } from "../../features/users/usersApi";
-import { getErrorMessage } from "../../lib/errorMessage";
+import { useGetUsersQuery } from "../../../features/users/usersApi.ts";
+import { useUpdateAssetMutation } from "../../../features/assets/assetsApi.ts";
+import { getErrorMessage } from "../../../lib/errorMessage.ts";
+
 
 interface Props {
   open: boolean;
@@ -21,7 +22,6 @@ interface Props {
   onClose: () => void;
 }
 
-// Dialog to assign an asset to a user (marks it "assigned").
 export default function AssignAssetDialog({ open, assetId, onClose }: Props) {
   const { data: users = [] } = useGetUsersQuery();
   const [updateAsset] = useUpdateAssetMutation();

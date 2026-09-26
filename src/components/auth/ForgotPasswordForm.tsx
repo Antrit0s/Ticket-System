@@ -20,7 +20,9 @@ import {
 import { getErrorMessage } from "../../lib/errorMessage";
 import PasswordField from "../shared/PasswordField";
 
-const emailSchema = z.object({ email: z.string().email("Enter a valid email") });
+const emailSchema = z.object({
+  email: z.string().email("Enter a valid email"),
+});
 
 const resetSchema = z
   .object({
@@ -35,18 +37,22 @@ const resetSchema = z
 
 type ResetValues = z.infer<typeof resetSchema>;
 
-// Step 1: enter email -> send one-time code.
-// Step 2: enter code + new password twice -> reset.
 export default function ForgotPasswordForm() {
   const navigate = useNavigate();
-  const [forgotPassword, { isLoading: isSending }] = useForgotPasswordMutation();
-  const [resetPassword, { isLoading: isResetting }] = useResetPasswordMutation();
+  const [forgotPassword, { isLoading: isSending }] =
+    useForgotPasswordMutation();
+  const [resetPassword, { isLoading: isResetting }] =
+    useResetPasswordMutation();
 
   const [step, setStep] = useState<"email" | "reset">("email");
   const [email, setEmail] = useState("");
 
-  const emailForm = useForm<{ email: string }>({ resolver: zodResolver(emailSchema) });
-  const resetForm = useForm<ResetValues>({ resolver: zodResolver(resetSchema) });
+  const emailForm = useForm<{ email: string }>({
+    resolver: zodResolver(emailSchema),
+  });
+  const resetForm = useForm<ResetValues>({
+    resolver: zodResolver(resetSchema),
+  });
 
   const onSendCode = async (values: { email: string }) => {
     const result = await forgotPassword({ email: values.email });
@@ -110,8 +116,17 @@ export default function ForgotPasswordForm() {
               />
             )}
           />
-          <Button type="submit" variant="contained" size="large" disabled={isSending}>
-            {isSending ? <CircularProgress size={22} color="inherit" /> : "Send code"}
+          <Button
+            type="submit"
+            variant="contained"
+            size="large"
+            disabled={isSending}
+          >
+            {isSending ? (
+              <CircularProgress size={22} color="inherit" />
+            ) : (
+              "Send code"
+            )}
           </Button>
         </Box>
       ) : (
@@ -128,7 +143,9 @@ export default function ForgotPasswordForm() {
                 {...field}
                 label="6-digit code"
                 fullWidth
-                slotProps={{ htmlInput: { inputMode: "numeric", maxLength: 6 } }}
+                slotProps={{
+                  htmlInput: { inputMode: "numeric", maxLength: 6 },
+                }}
                 error={!!fieldState.error}
                 helperText={fieldState.error?.message}
               />
@@ -160,8 +177,17 @@ export default function ForgotPasswordForm() {
               />
             )}
           />
-          <Button type="submit" variant="contained" size="large" disabled={isResetting}>
-            {isResetting ? <CircularProgress size={22} color="inherit" /> : "Reset password"}
+          <Button
+            type="submit"
+            variant="contained"
+            size="large"
+            disabled={isResetting}
+          >
+            {isResetting ? (
+              <CircularProgress size={22} color="inherit" />
+            ) : (
+              "Reset password"
+            )}
           </Button>
         </Box>
       )}

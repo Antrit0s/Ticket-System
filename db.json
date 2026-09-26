@@ -297,6 +297,30 @@
       "createdAt": "2026-09-25T17:18:06.772Z",
       "updatedAt": "2026-09-25T17:18:06.772Z",
       "id": "-o-fmPWyTCY"
+    },
+    {
+      "title": "asdasd",
+      "description": "sadasdasdasd",
+      "categoryId": "c2",
+      "priority": "medium",
+      "assetId": null,
+      "creatorId": "u2",
+      "status": "open",
+      "createdAt": "2026-09-26T12:38:44.431Z",
+      "updatedAt": "2026-09-26T12:38:44.431Z",
+      "id": "zARmMDKM3U0"
+    },
+    {
+      "title": "asddasda",
+      "description": "vxcvxcvxcvx",
+      "categoryId": "c1",
+      "priority": "medium",
+      "assetId": null,
+      "creatorId": "tTtfPPXP8OA",
+      "status": "open",
+      "createdAt": "2026-09-26T14:23:23.240Z",
+      "updatedAt": "2026-09-26T14:23:23.240Z",
+      "id": "sHF358zfNM8"
     }
   ],
   "appointments": [
@@ -366,16 +390,16 @@
         "u1",
         "u2"
       ],
-      "lastMessage": "jj",
-      "updatedAt": "2026-09-25T20:09:39.277Z"
+      "lastMessage": "sad",
+      "updatedAt": "2026-09-26T13:57:55.288Z"
     },
     {
       "participants": [
         "a1",
         "tTtfPPXP8OA"
       ],
-      "lastMessage": "",
-      "updatedAt": "2026-09-24T20:52:36.092Z",
+      "lastMessage": "bye",
+      "updatedAt": "2026-09-26T11:27:32.149Z",
       "id": "sXymebmKlzE"
     },
     {
@@ -383,9 +407,18 @@
         "u3",
         "u1"
       ],
-      "lastMessage": "poooooo",
-      "updatedAt": "2026-09-25T16:58:28.222Z",
+      "lastMessage": "as",
+      "updatedAt": "2026-09-26T14:00:26.610Z",
       "id": "l1JcCr9W3J0"
+    },
+    {
+      "participants": [
+        "tTtfPPXP8OA",
+        "u1"
+      ],
+      "lastMessage": "bboi",
+      "updatedAt": "2026-09-26T11:32:22.690Z",
+      "id": "viuwADJVmUM"
     }
   ],
   "messages": [
@@ -596,6 +629,126 @@
       "createdAt": "2026-09-25T20:09:39.262Z",
       "isRead": false,
       "id": "jpL9pQOmiyM"
+    },
+    {
+      "conversationId": "sXymebmKlzE",
+      "senderId": "tTtfPPXP8OA",
+      "text": "hello",
+      "createdAt": "2026-09-26T11:20:28.007Z",
+      "isRead": false,
+      "id": "g1qZJZ4bsrE"
+    },
+    {
+      "conversationId": "sXymebmKlzE",
+      "senderId": "tTtfPPXP8OA",
+      "text": "hey",
+      "createdAt": "2026-09-26T11:20:48.756Z",
+      "isRead": false,
+      "id": "DUcsdS-tMK8"
+    },
+    {
+      "conversationId": "sXymebmKlzE",
+      "senderId": "tTtfPPXP8OA",
+      "text": "ddd",
+      "createdAt": "2026-09-26T11:21:01.295Z",
+      "isRead": false,
+      "id": "pKdjGaKqnmQ"
+    },
+    {
+      "conversationId": "sXymebmKlzE",
+      "senderId": "tTtfPPXP8OA",
+      "text": "ss",
+      "createdAt": "2026-09-26T11:21:03.112Z",
+      "isRead": false,
+      "id": "VazLWY2Zt2g"
+    },
+    {
+      "conversationId": "sXymebmKlzE",
+      "senderId": "tTtfPPXP8OA",
+      "text": "hi",
+      "createdAt": "2026-09-26T11:27:04.810Z",
+      "isRead": false,
+      "id": "HNgytXyj3V4"
+    },
+    {
+      "conversationId": "sXymebmKlzE",
+      "senderId": "tTtfPPXP8OA",
+      "text": "bye",
+      "createdAt": "2026-09-26T11:27:32.027Z",
+      "isRead": false,
+      "id": "w8jX7m--m2Y"
+    },
+    {
+      "conversationId": "viuwADJVmUM",
+      "senderId": "tTtfPPXP8OA",
+      "text": "hu",
+      "createdAt": "2026-09-26T11:32:00.549Z",
+      "isRead": true,
+      "id": "QpJnrRQVFu0"
+    },
+    {
+      "conversationId": "viuwADJVmUM",
+      "senderId": "u1",
+      "text": "bboi",
+      "createdAt": "2026-09-26T11:32:22.678Z",
+      "isRead": true,
+      "id": "6vMW5C7o8xQ"
+    },
+    {
+      "conversationId": "conv-5",
+      "senderId": "u1",
+      "text": "adsd",
+      "createdAt": "2026-09-26T13:57:51.179Z",
+      "isRead": false,
+      "id": "cruS64oX4Sg"
+    },
+    {
+      "conversationId": "conv-5",
+      "senderId": "u1",
+      "text": "sdasd",
+      "createdAt": "2026-09-26T13:57:53.184Z",
+      "isRead": false,
+      "id": "DZXfqWuhOzI"
+    },
+    {
+      "conversationId": "conv-5",
+      "senderId": "u1",
+      "text": "sad",
+      "createdAt": "2026-09-26T13:57:55.275Z",
+      "isRead": false,
+      "id": "x4AurIplodM"
+    },
+    {
+      "conversationId": "l1JcCr9W3J0",
+      "senderId": "u1",
+      "text": "asdasd",
+      "createdAt": "2026-09-26T14:00:24.481Z",
+      "isRead": false,
+      "id": "AxcaLyCJ7f8"
+    },
+    {
+      "conversationId": "l1JcCr9W3J0",
+      "senderId": "u1",
+      "text": "asdaasd",
+      "createdAt": "2026-09-26T14:00:25.478Z",
+      "isRead": false,
+      "id": "PYoET1JT3mk"
+    },
+    {
+      "conversationId": "l1JcCr9W3J0",
+      "senderId": "u1",
+      "text": "asdasdasd",
+      "createdAt": "2026-09-26T14:00:26.306Z",
+      "isRead": false,
+      "id": "5dsq9IX5giM"
+    },
+    {
+      "conversationId": "l1JcCr9W3J0",
+      "senderId": "u1",
+      "text": "as",
+      "createdAt": "2026-09-26T14:00:26.599Z",
+      "isRead": false,
+      "id": "eKN9dIvQmvk"
     }
   ],
   "ticketMessages": [
@@ -712,6 +865,13 @@
       "text": "gg",
       "createdAt": "2026-09-25T14:14:00.638Z",
       "id": "IeGcXzgmd6c"
+    },
+    {
+      "ticketId": "zARmMDKM3U0",
+      "senderId": "u1",
+      "text": ".",
+      "createdAt": "2026-09-26T14:01:37.754Z",
+      "id": "nwek3-dlWj4"
     }
   ],
   "ticketActivity": [
@@ -846,6 +1006,24 @@
       "action": "Ticket created",
       "createdAt": "2026-09-25T17:18:06.792Z",
       "id": "OFIAageFiAk"
+    },
+    {
+      "ticketId": "zARmMDKM3U0",
+      "action": "Ticket created",
+      "createdAt": "2026-09-26T12:38:44.471Z",
+      "id": "8ZWTxy_eVhw"
+    },
+    {
+      "ticketId": "zARmMDKM3U0",
+      "action": "Youssef Ibrrahim replied",
+      "createdAt": "2026-09-26T14:01:37.766Z",
+      "id": "tRYhn7FzVhQ"
+    },
+    {
+      "ticketId": "sHF358zfNM8",
+      "action": "Ticket created",
+      "createdAt": "2026-09-26T14:23:23.259Z",
+      "id": "RtItCF7QYbo"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

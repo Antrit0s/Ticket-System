@@ -18,7 +18,6 @@ import { useGetUsersQuery } from "../../features/users/usersApi";
 import { getErrorMessage } from "../../lib/errorMessage";
 import { statusColor } from "../../lib/utils";
 
-// The logged-in user's upcoming appointments, oldest first.
 export default function UserAppointmentsPage() {
   const user = useAppSelector((state) => state.authSlice.user);
   const { data: appointments = [], isLoading } = useGetAppointmentsQuery(
@@ -29,13 +28,18 @@ export default function UserAppointmentsPage() {
 
   if (!user) return null;
 
-  const getUserName = (userId: string) => users.find((user) => user.id === userId)?.name ?? userId;
-  const sortedAppointments = [...appointments].sort(
-    (a, b) => new Date(a.scheduledAt).getTime() - new Date(b.scheduledAt).getTime(),
+  const getUserName = (userId: string) =>
+    users.find((user) => user.id === userId)?.name ?? userId;
+  const sortedAppointments = appointments.toSorted(
+    (a, b) =>
+      new Date(a.scheduledAt).getTime() - new Date(b.scheduledAt).getTime(),
   );
 
   const handleCancel = async (appointmentId: string) => {
-    const result = await updateAppointment({ id: appointmentId, patch: { status: "cancelled" } });
+    const result = await updateAppointment({
+      id: appointmentId,
+      patch: { status: "cancelled" },
+    });
     if (result.error) {
       toast.error(getErrorMessage(result.error));
       return;
@@ -55,7 +59,9 @@ export default function UserAppointmentsPage() {
         </Box>
       ) : sortedAppointments.length === 0 ? (
         <Card sx={{ p: 4, textAlign: "center" }}>
-          <Typography color="text.secondary">No appointments scheduled.</Typography>
+          <Typography color="text.secondary">
+            No appointments scheduled.
+          </Typography>
         </Card>
       ) : (
         <Stack spacing={2}>
@@ -80,7 +86,11 @@ export default function UserAppointmentsPage() {
                     color={statusColor(appointment.status)}
                   />
                 </Box>
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 1 }}
+                >
                   With {getUserName(appointment.technicianId)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

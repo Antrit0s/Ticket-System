@@ -32,7 +32,10 @@ export default function OtpInput({ value, onChange }: Props) {
     }
   };
 
-  const handleKeyDown = (index: number, event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (
+    index: number,
+    event: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
     if (event.key === "Backspace") {
       if (!otpArray[index] && index > 0) {
         // Backspace on an empty box clears the previous digit.
@@ -55,7 +58,10 @@ export default function OtpInput({ value, onChange }: Props) {
 
   const handlePaste = (event: React.ClipboardEvent) => {
     event.preventDefault();
-    const pastedText = event.clipboardData.getData("text").replace(/[^0-9]/g, "").slice(0, 6);
+    const pastedText = event.clipboardData
+      .getData("text")
+      .replace(/[^0-9]/g, "")
+      .slice(0, 6);
     if (pastedText) {
       onChange(pastedText);
       // Jump to the next empty box after pasting.
@@ -96,14 +102,26 @@ export default function OtpInput({ value, onChange }: Props) {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-      <Typography sx={{ fontWeight: "bold", fontSize: "14px", color: "text.primary" }}>
+      <Typography
+        sx={{ fontWeight: "bold", fontSize: "14px", color: "text.primary" }}
+      >
         OTP
       </Typography>
-      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 1 }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 1,
+        }}
+      >
         {renderInputBox(0)}
         {renderInputBox(1)}
         {renderInputBox(2)}
-        <Typography variant="h6" sx={{ px: 0.5, fontWeight: "bold", color: "text.secondary" }}>
+        <Typography
+          variant="h6"
+          sx={{ px: 0.5, fontWeight: "bold", color: "text.secondary" }}
+        >
           :
         </Typography>
         {renderInputBox(3)}

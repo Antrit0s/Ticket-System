@@ -7,7 +7,12 @@ interface Props {
   onPageChange: (page: number) => void;
 }
 
-export default function PaginationControls({ total, currentPage, pageSize = 8, onPageChange }: Props) {
+export default function PaginationControls({
+  total,
+  currentPage,
+  pageSize = 8,
+  onPageChange,
+}: Props) {
   const pageCount = Math.ceil(total / pageSize);
   if (pageCount <= 1) return null;
 
@@ -18,7 +23,7 @@ export default function PaginationControls({ total, currentPage, pageSize = 8, o
         page={currentPage}
         onChange={(_event, page) => onPageChange(page)}
         color="primary"
-        size="small"
+        size="large"
       />
     </Box>
   );

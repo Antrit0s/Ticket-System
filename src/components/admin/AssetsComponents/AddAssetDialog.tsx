@@ -12,10 +12,10 @@ import {
   TextField,
   CircularProgress,
 } from "@mui/material";
-import { useCreateAssetMutation } from "../../features/assets/assetsApi";
-import { useGetUsersQuery } from "../../features/users/usersApi";
-import { getErrorMessage } from "../../lib/errorMessage";
-import AssetTypeField from "./AssetTypeField";
+import { useCreateAssetMutation } from "../../../features/assets/assetsApi.ts";
+import { useGetUsersQuery } from "../../../features/users/usersApi.ts";
+import { getErrorMessage } from "../../../lib/errorMessage.ts";
+import AssetTypeField from "./AssetTypeField.tsx";
 
 const schema = z.object({
   name: z.string().min(3, "Asset name is too short"),
@@ -122,7 +122,8 @@ export default function AddAssetDialog({ open, onClose }: Props) {
               >
                 {users.map((user) => (
                   <MenuItem key={user.id} value={user.id}>
-                    {user.name} ({user.email}){user.role === "admin" ? " — Admin" : ""}
+                    {user.name} ({user.email})
+                    {user.role === "admin" ? " — Admin" : ""}
                   </MenuItem>
                 ))}
               </TextField>
@@ -132,7 +133,11 @@ export default function AddAssetDialog({ open, onClose }: Props) {
           <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }}>
             <Button onClick={onClose}>Cancel</Button>
             <Button type="submit" variant="contained" disabled={isLoading}>
-              {isLoading ? <CircularProgress size={22} color="inherit" /> : "Add Asset"}
+              {isLoading ? (
+                <CircularProgress size={22} color="inherit" />
+              ) : (
+                "Add Asset"
+              )}
             </Button>
           </Box>
         </Box>

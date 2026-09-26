@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Button, MenuItem, TextField } from "@mui/material";
-import { useGetAssetsQuery } from "../../features/assets/assetsApi";
+import { useGetAssetsQuery } from "../../../features/assets/assetsApi.ts";
 
 const DEFAULT_ASSET_TYPES = ["Laptop", "Monitor", "Security Key", "Tablet"];
 const ADD_NEW_TYPE = "__add_new__";
@@ -12,11 +12,18 @@ interface Props {
   helperText?: string;
 }
 
-export default function AssetTypeField({ value, onChange, error, helperText }: Props) {
+export default function AssetTypeField({
+  value,
+  onChange,
+  error,
+  helperText,
+}: Props) {
   const { data: assets = [] } = useGetAssetsQuery();
   const [isCustomType, setIsCustomType] = useState(false);
 
-  const assetTypes = [...new Set([...DEFAULT_ASSET_TYPES, ...assets.map((asset) => asset.type)])];
+  const assetTypes = [
+    ...new Set([...DEFAULT_ASSET_TYPES, ...assets.map((asset) => asset.type)]),
+  ];
 
   if (isCustomType) {
     return (

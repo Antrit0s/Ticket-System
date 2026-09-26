@@ -87,11 +87,10 @@ export default function LoginForm({ role, onBack }: Props) {
     if (emailSent) {
       toast.success("Code sent to your email");
     } else {
-      // EmailJS isn't configured yet, so show the code in dev.
       toast.info(`Email not configured yet. Your code is: ${user.otp}`);
     }
     setCodeSent(true);
-    setCooldown(60); // Start 60-second cooldown
+    setCooldown(60); //
   };
 
   const onSubmit = async (values: FormValues) => {

@@ -20,7 +20,6 @@ export async function sendOtpEmail(
     );
     return response.status === 200;
   } catch (error) {
-    // Keep dev flowing while EmailJS keys are still placeholders.
     console.error("Could not send the OTP email:", error);
     return false;
   }

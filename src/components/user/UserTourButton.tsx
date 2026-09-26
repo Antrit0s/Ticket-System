@@ -1,7 +1,7 @@
 import type { MouseEvent } from "react";
 import { IconButton, Tooltip } from "@mui/material";
 import { HelpOutlined } from "@mui/icons-material";
-import { startUserTour } from "../../lib/userTour"; // adjust path to your lib folder
+import { startUserTour } from "../../lib/userTour"; 
 
 function handleClick(event: MouseEvent<HTMLButtonElement>) {
   if (event.detail === 0) return;

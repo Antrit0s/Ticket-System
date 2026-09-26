@@ -21,7 +21,6 @@ interface Props {
   onBack: () => void;
 }
 
-// One open conversation: the message thread plus a send box.
 export default function ChatWindow({ conversationId, userId, onBack }: Props) {
   const {
     data: messages = [],
@@ -55,7 +54,6 @@ export default function ChatWindow({ conversationId, userId, onBack }: Props) {
     await updatePreview({ id: conversationId, lastMessage: value });
     setText("");
   };
-
   return (
     <Box
       sx={{
@@ -106,7 +104,16 @@ export default function ChatWindow({ conversationId, userId, onBack }: Props) {
           </Box>
         ) : (
           messages.map((message) => {
-            const mine = message.senderId === userId;
+            console.log(
+              "senderId:",
+              message.senderId,
+              "| userId:",
+              userId,
+              "| types:",
+              typeof message.senderId,
+              typeof userId,
+            );
+            const mine = String(message.senderId) === String(userId);
             return (
               <Box
                 key={message.id}
@@ -119,8 +126,16 @@ export default function ChatWindow({ conversationId, userId, onBack }: Props) {
                   sx={{
                     p: 1.5,
                     borderRadius: 2,
-                    bgcolor: mine ? "chat.supportBg" : "chat.customerBg",
-                    color: mine ? "chat.supportFg" : "chat.customerFg",
+                    bgcolor: message.isRead
+                      ? mine
+                        ? "chat.supportBg"
+                        : "chat.customerBg"
+                      : "grey.300",
+                    color: message.isRead
+                      ? mine
+                        ? "chat.supportFg"
+                        : "chat.customerFg"
+                      : "grey.800",
                   }}
                 >
                   <Typography variant="body2">{message.text}</Typography>
@@ -172,11 +187,15 @@ export default function ChatWindow({ conversationId, userId, onBack }: Props) {
         <TextField
           size="small"
           fullWidth
+          multiline
           placeholder="Type a message"
           value={text}
           onChange={(event) => setText(event.target.value)}
           onKeyDown={(event) => {
-            if (event.key === "Enter") onSend();
+            if (event.key === "Enter" && !event.shiftKey) {
+              event.preventDefault();
+              onSend();
+            }
           }}
         />
         <Button variant="contained" onClick={onSend}>

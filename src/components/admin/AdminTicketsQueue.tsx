@@ -22,7 +22,6 @@ import TicketsTable from "./TicketsTable.tsx";
 
 const PAGE_SIZE = 8;
 
-// The full ticket queue for admins: search, sort, filter, and reassign.
 export default function AdminTicketsQueue() {
   const navigate = useNavigate();
   const [status, setStatus] = useState("");

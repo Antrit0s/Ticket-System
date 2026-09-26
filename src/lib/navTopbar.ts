@@ -5,7 +5,6 @@ const extraTitles: Record<string, string> = {
   "/profile": "Profile",
 };
 
-// Header title for the current route.
 export function getPageTitle(pathname: string): string {
   for (const items of Object.values(navItems)) {
     const match = items.find((item) => item.path === pathname);

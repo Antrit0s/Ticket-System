@@ -12,9 +12,9 @@ import {
   TextField,
   CircularProgress,
 } from "@mui/material";
-import { useUpdateAssetMutation } from "../../features/assets/assetsApi";
-import { getErrorMessage } from "../../lib/errorMessage";
-import type { Asset } from "../../types";
+import { useUpdateAssetMutation } from "../../../features/assets/assetsApi";
+import { getErrorMessage } from "../../../lib/errorMessage";
+import type { Asset } from "../../../types";
 import AssetTypeField from "./AssetTypeField";
 
 const schema = z.object({
@@ -31,7 +31,6 @@ interface Props {
   onClose: () => void;
 }
 
-// Dialog for admins to edit an asset's name, serial number, and type.
 export default function EditAssetDialog({ open, asset, onClose }: Props) {
   const [updateAsset, { isLoading }] = useUpdateAssetMutation();
 
@@ -123,7 +122,11 @@ export default function EditAssetDialog({ open, asset, onClose }: Props) {
           <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }}>
             <Button onClick={onClose}>Cancel</Button>
             <Button type="submit" variant="contained" disabled={isLoading}>
-              {isLoading ? <CircularProgress size={22} color="inherit" /> : "Save changes"}
+              {isLoading ? (
+                <CircularProgress size={22} color="inherit" />
+              ) : (
+                "Save changes"
+              )}
             </Button>
           </Box>
         </Box>

@@ -25,8 +25,6 @@ interface Props {
   existingConversations: Array<{ id: string; participants: string[] }>;
 }
 
-// Dialog to start a new 1:1 conversation. If one already exists with the
-// selected user, open it; otherwise create a new conversation.
 export default function NewMessageDialog({
   open,
   onClose,
@@ -39,7 +37,6 @@ export default function NewMessageDialog({
   const [createConversation, { isLoading: isCreating }] =
     useCreateConversationMutation();
 
-  // Everyone except yourself, matching the search text.
   const filteredUsers = users.filter(
     (user) =>
       user.id !== currentUserId &&
@@ -48,8 +45,10 @@ export default function NewMessageDialog({
 
   const handleSelect = async (userId: string) => {
     // Reuse an existing 1:1 thread instead of duplicating it.
-    const existing = existingConversations.find((conversation) =>
-      conversation.participants.includes(currentUserId) && conversation.participants.includes(userId)
+    const existing = existingConversations.find(
+      (conversation) =>
+        conversation.participants.includes(currentUserId) &&
+        conversation.participants.includes(userId),
     );
 
     if (existing) {
@@ -92,7 +91,11 @@ export default function NewMessageDialog({
               <CircularProgress />
             </Box>
           ) : filteredUsers.length === 0 ? (
-            <Typography variant="body2" color="text.secondary" sx={{ py: 2, textAlign: "center" }}>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ py: 2, textAlign: "center" }}
+            >
               No users found.
             </Typography>
           ) : (

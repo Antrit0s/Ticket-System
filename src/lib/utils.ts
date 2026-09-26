@@ -18,7 +18,6 @@ export function relativeTime(iso: string) {
   return `${Math.floor(hours / 24)}d ago`;
 }
 
-// Appointment status → MUI chip color.
 export function statusColor(status?: string) {
   if (status === "completed") return "success";
   if (status === "cancelled") return "default";

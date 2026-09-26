@@ -24,7 +24,6 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-// User sign-up only. Admins cannot sign up — that role is granted by an admin.
 export default function SignupForm() {
   const navigate = useNavigate();
   const [signUp, { isLoading }] = useSignUpMutation();

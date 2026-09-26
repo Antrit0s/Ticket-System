@@ -13,12 +13,12 @@ import { toast } from "react-toastify";
 import {
   useGetAppointmentsQuery,
   useUpdateAppointmentMutation,
-} from "../../features/appointments/appointmentsApi";
-import { useGetTicketsQuery } from "../../features/tickets/ticketsApi";
-import { useGetUsersQuery } from "../../features/users/usersApi";
-import { getErrorMessage } from "../../lib/errorMessage";
-import AppointmentFormDialog from "./AppointmentFormDialog";
-import { statusColor } from "../../lib/utils";
+} from "../../../features/appointments/appointmentsApi";
+import { useGetTicketsQuery } from "../../../features/tickets/ticketsApi";
+import { useGetUsersQuery } from "../../../features/users/usersApi";
+import { getErrorMessage } from "../../../lib/errorMessage";
+import { statusColor } from "../../../lib/utils";
+import AppointmentFormDialog from "./AppointmentFormDialog.tsx";
 
 export default function AdminAppointmentsPage() {
   const [open, setOpen] = useState(false);
@@ -27,15 +27,20 @@ export default function AdminAppointmentsPage() {
   const { data: users = [] } = useGetUsersQuery();
   const [updateAppointment] = useUpdateAppointmentMutation();
 
-  const getUserName = (userId: string) => users.find((user) => user.id === userId)?.name ?? userId;
-  const getTicketTitle = (ticketId: string) => tickets.find((ticket) => ticket.id === ticketId)?.title ?? ticketId;
+  const getUserName = (userId: string) =>
+    users.find((user) => user.id === userId)?.name ?? userId;
+  const getTicketTitle = (ticketId: string) =>
+    tickets.find((ticket) => ticket.id === ticketId)?.title ?? ticketId;
 
-  const sortedAppointments = [...appointments].sort(
-    (a, b) => new Date(a.scheduledAt).getTime() - new Date(b.scheduledAt).getTime(),
+  const sortedAppointments = appointments.toSorted(
+    (a, b) =>
+      new Date(a.scheduledAt).getTime() - new Date(b.scheduledAt).getTime(),
   );
-
   const handleCancel = async (appointmentId: string) => {
-    const result = await updateAppointment({ id: appointmentId, patch: { status: "cancelled" } });
+    const result = await updateAppointment({
+      id: appointmentId,
+      patch: { status: "cancelled" },
+    });
     if (result.error) {
       toast.error(getErrorMessage(result.error));
       return;
@@ -44,7 +49,10 @@ export default function AdminAppointmentsPage() {
   };
 
   const handleComplete = async (appointmentId: string) => {
-    const result = await updateAppointment({ id: appointmentId, patch: { status: "completed" } });
+    const result = await updateAppointment({
+      id: appointmentId,
+      patch: { status: "completed" },
+    });
     if (result.error) {
       toast.error(getErrorMessage(result.error));
       return;
@@ -112,9 +120,12 @@ export default function AdminAppointmentsPage() {
                 <Typography variant="body2" color="text.secondary">
                   Location: {appointment.location}
                 </Typography>
-                {appointment.notes && <Typography variant="caption">{appointment.notes}</Typography>}
+                {appointment.notes && (
+                  <Typography variant="caption">{appointment.notes}</Typography>
+                )}
 
-                {(!appointment.status || appointment.status === "scheduled") && (
+                {(!appointment.status ||
+                  appointment.status === "scheduled") && (
                   <Box sx={{ mt: 2, display: "flex", gap: 1 }}>
                     <Button
                       size="small"

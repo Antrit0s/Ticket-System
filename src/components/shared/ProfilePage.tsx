@@ -28,8 +28,6 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-// Lets the logged-in user (or admin) edit their own profile: name, email,
-// department, and optionally a new password.
 export default function ProfilePage() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.authSlice.user);
@@ -130,7 +128,8 @@ export default function ProfilePage() {
               fullWidth
               error={!!fieldState.error}
               helperText={
-                fieldState.error?.message ?? "Leave blank to keep your current password"
+                fieldState.error?.message ??
+                "Leave blank to keep your current password"
               }
             />
           )}
@@ -138,7 +137,11 @@ export default function ProfilePage() {
 
         <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }}>
           <Button type="submit" variant="contained" disabled={isLoading}>
-            {isLoading ? <CircularProgress size={22} color="inherit" /> : "Save changes"}
+            {isLoading ? (
+              <CircularProgress size={22} color="inherit" />
+            ) : (
+              "Save changes"
+            )}
           </Button>
         </Box>
       </Box>

@@ -1,4 +1,4 @@
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -15,6 +15,7 @@ import {
 import {
   useCreateTicketMutation,
   useGetCategoriesQuery,
+  useGetTicketsQuery,
   useLogTicketActivityMutation,
 } from "../../features/tickets/ticketsApi";
 import { useGetAssetsQuery } from "../../features/assets/assetsApi";
@@ -31,10 +32,11 @@ const schema = z.object({
 });
 
 type FormValues = z.infer<typeof schema>;
-
-// Form to create a new ticket. If opened from an asset ("Report issue"),
-// the asset is pre-selected via the ?assetId= query param.
-export default function TicketForm() {
+interface Props {
+  onClose?: () => void;
+  onSuccess?: () => void;
+}
+export default function TicketForm({ onClose, onSuccess }: Props) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const user = useAppSelector((state) => state.authSlice.user);
@@ -45,8 +47,17 @@ export default function TicketForm() {
     user ? { userId: user.id } : undefined,
   );
 
+  const { data: allTickets = [] } = useGetTicketsQuery();
   const presetAssetId = searchParams.get("assetId") ?? "";
-
+  //asset with open ticket cant create new one
+  const isAssetBlocked = (assetId: string) =>
+    !!assetId &&
+    allTickets.some(
+      (t) =>
+        t.assetId === assetId &&
+        t.status !== "closed" &&
+        t.status !== "resolved",
+    );
   const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -57,9 +68,16 @@ export default function TicketForm() {
       assetId: presetAssetId,
     },
   });
-
+  const selectedAssetId = useWatch({ control, name: "assetId" });
+  const hasBlockingTicket = isAssetBlocked(selectedAssetId ?? "");
   const onSubmit = async (values: FormValues) => {
     if (!user) return;
+    if (isAssetBlocked(values.assetId ?? "")) {
+      toast.error(
+        "This asset already has an open ticket. Please close or resolve it first.",
+      );
+      return;
+    }
     const result = await createTicket({
       title: values.title,
       description: values.description,
@@ -81,11 +99,15 @@ export default function TicketForm() {
     }
 
     toast.success("Ticket created");
-    navigate("/dashboard/tickets");
+    if (onSuccess) {
+      onSuccess();
+    } else {
+      navigate("/dashboard/tickets");
+    }
   };
 
   return (
-    <Card sx={{ maxWidth: 640, p: 3 }}>
+    <Card sx={{ maxWidth: "100%", p: 3 }}>
       <Typography variant="h1" gutterBottom>
         New Ticket
       </Typography>
@@ -158,7 +180,18 @@ export default function TicketForm() {
           name="assetId"
           control={control}
           render={({ field }) => (
-            <TextField {...field} select label="Related asset" fullWidth>
+            <TextField
+              {...field}
+              select
+              label="Related asset"
+              fullWidth
+              error={hasBlockingTicket}
+              helperText={
+                hasBlockingTicket
+                  ? "This asset already has an open ticket."
+                  : ""
+              }
+            >
               <MenuItem value="">None</MenuItem>
               {assets.map((assetItem) => (
                 <MenuItem key={assetItem.id} value={assetItem.id}>
@@ -170,9 +203,23 @@ export default function TicketForm() {
         />
 
         <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end" }}>
-          <Button onClick={() => navigate("/dashboard/tickets")}>Cancel</Button>
-          <Button type="submit" variant="contained" disabled={isLoading}>
-            {isLoading ? <CircularProgress size={22} color="inherit" /> : "Submit"}
+          <Button
+            onClick={() =>
+              onClose ? onClose() : navigate("/dashboard/tickets")
+            }
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={isLoading || hasBlockingTicket}
+          >
+            {isLoading ? (
+              <CircularProgress size={22} color="inherit" />
+            ) : (
+              "Submit"
+            )}
           </Button>
         </Box>
       </Box>

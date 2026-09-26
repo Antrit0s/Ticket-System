@@ -8,8 +8,8 @@ import TicketForm from "./components/user/TicketForm";
 import MyAssetsPage from "./components/user/MyAssetsPage";
 import UserAppointmentsPage from "./components/user/UserAppointmentsPage";
 import AdminTicketsQueue from "./components/admin/AdminTicketsQueue";
-import AdminAssetsInventory from "./components/admin/AdminAssetsInventory";
-import AdminAppointmentsPage from "./components/admin/AdminAppointmentsPage";
+import AdminAssetsInventory from "./components/admin/AssetsComponents/AdminAssetsInventory";
+import AdminAppointmentsPage from "./components/admin/AppointmentComponents/AdminAppointmentsPage";
 import AdminMetricsPage from "./components/admin/AdminMetricsPage";
 import AdminUsersPage from "./components/admin/AdminUsersPage";
 import ChatLayout from "./components/shared/chat/ChatLayout";
@@ -35,9 +35,15 @@ function App() {
             <Route path="/dashboard" element={<OverviewPage />} />
             <Route path="/dashboard/tickets" element={<UserTicketsPage />} />
             <Route path="/dashboard/tickets/new" element={<TicketForm />} />
-            <Route path="/dashboard/tickets/:id" element={<TicketDetailsPage />} />
+            <Route
+              path="/dashboard/tickets/:id"
+              element={<TicketDetailsPage />}
+            />
             <Route path="/dashboard/assets" element={<MyAssetsPage />} />
-            <Route path="/dashboard/appointments" element={<UserAppointmentsPage />} />
+            <Route
+              path="/dashboard/appointments"
+              element={<UserAppointmentsPage />}
+            />
             <Route path="/dashboard/messages" element={<ChatLayout />} />
           </Route>
 
@@ -46,7 +52,10 @@ function App() {
             <Route path="/admin" element={<AdminTicketsQueue />} />
             <Route path="/admin/tickets/:id" element={<TicketDetailsPage />} />
             <Route path="/admin/assets" element={<AdminAssetsInventory />} />
-            <Route path="/admin/appointments" element={<AdminAppointmentsPage />} />
+            <Route
+              path="/admin/appointments"
+              element={<AdminAppointmentsPage />}
+            />
             <Route path="/admin/users" element={<AdminUsersPage />} />
             <Route path="/admin/messages" element={<ChatLayout />} />
             <Route path="/admin/metrics" element={<AdminMetricsPage />} />
@@ -54,7 +63,6 @@ function App() {
         </Route>
       </Route>
 
-      {/* Catch-all for undefined routes -> 404 redirect */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

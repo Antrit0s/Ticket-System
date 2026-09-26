@@ -10,7 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { getTheme } from "../theme";
 
-type ThemeMode = PaletteMode; // "light" | "dark"
+type ThemeMode = PaletteMode;
 
 interface ThemeModeValue {
   mode: ThemeMode;
@@ -19,17 +19,14 @@ interface ThemeModeValue {
 
 const ThemeModeContext = createContext<ThemeModeValue | undefined>(undefined);
 
-// Key we use to remember the user's choice across reloads.
 const STORAGE_KEY = "ticket-system-theme";
 
-// First visit: follow the system preference. After that, follow the saved choice.
 function getInitialMode(): ThemeMode {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved === "light" || saved === "dark") return saved;
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-// Provides the current theme mode + a toggle, and applies the matching MUI theme.
 export function ThemeModeProvider({ children }: { children: ReactNode }) {
   const [mode, setMode] = useState<ThemeMode>(getInitialMode);
 

@@ -19,7 +19,6 @@ interface Props {
   onSelect: (conversationId: string) => void;
 }
 
-// Lists the conversations the current user is part of.
 export default function ConversationList({ userId, selectedId, onSelect }: Props) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const { data: conversations = [], isLoading } = useGetConversationsQuery();

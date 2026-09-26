@@ -8,9 +8,6 @@ import ForgotPasswordForm from "./ForgotPasswordForm";
 import { brandWordmarkFont } from "../../theme";
 import type { UserRole } from "../../types";
 
-// Parent auth screen. It picks what to render based on the path:
-//   /        -> role selection (default page), then the login form for that role
-//   /signup  -> user sign-up form (admins have no sign-up)
 export default function AuthPage() {
   const { pathname } = useLocation();
   const isSignup = pathname === "/signup";

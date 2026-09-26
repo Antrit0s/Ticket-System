@@ -20,13 +20,13 @@ import {
   Typography,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useGetAssetsQuery } from "../../features/assets/assetsApi";
-import { useGetUsersQuery } from "../../features/users/usersApi";
+import { useGetAssetsQuery } from "../../../features/assets/assetsApi";
+import { useGetUsersQuery } from "../../../features/users/usersApi";
 import AddAssetDialog from "./AddAssetDialog";
-import AssignAssetDialog from "./AssignAssetDialog";
 import EditAssetDialog from "./EditAssetDialog";
-import PaginationControls from "../shared/PaginationControls";
-import type { Asset } from "../../types";
+import PaginationControls from "../../shared/PaginationControls";
+import type { Asset } from "../../../types";
+import AssignAssetDialog from "./AssignAssetDialog.tsx";
 
 const PAGE_SIZE = 8;
 

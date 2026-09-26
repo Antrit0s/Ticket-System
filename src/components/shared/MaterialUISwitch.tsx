@@ -1,7 +1,5 @@
 import { styled, Switch } from "@mui/material";
 
-// Sun/moon toggle switch. Unchecked = sun (light mode), checked = moon (dark).
-// Styled straight from the MUI "customized switch" example.
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -10,6 +8,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     margin: 1,
     padding: 0,
     transform: "translateX(6px)",
+    transition: "transform 400ms cubic-bezier(0.4, 0, 0.2, 1)",
     "&.Mui-checked": {
       color: "#fff",
       transform: "translateX(22px)",
@@ -31,6 +30,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     backgroundColor: "#001e3c",
     width: 32,
     height: 32,
+    transition: "background-color 400ms ease",
     "&::before": {
       content: "''",
       position: "absolute",

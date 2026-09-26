@@ -3,7 +3,6 @@ import { useGetTicketsQuery } from "../../features/tickets/ticketsApi";
 import { useGetAssetsQuery } from "../../features/assets/assetsApi";
 import { useGetUsersQuery } from "../../features/users/usersApi";
 
-//
 export default function AdminMetricsPage() {
   const { data: tickets = [] } = useGetTicketsQuery(undefined, {
     pollingInterval: 5000,

@@ -9,6 +9,8 @@ import {
   ListItemText,
   Tooltip,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import {
   ChevronLeft,
@@ -17,6 +19,7 @@ import {
 } from "@mui/icons-material";
 import { navItems, getHomePath } from "../../lib/navSidebar";
 import type { UserRole } from "../../types";
+import { useEffect, useRef } from "react";
 
 interface Props {
   role: UserRole;
@@ -26,9 +29,34 @@ interface Props {
   drawerWidth: number;
 }
 
-export default function Sidebar({ role, open, onToggle, currentPath, drawerWidth }: Props) {
+export default function Sidebar({
+  role,
+  open,
+  onToggle,
+  currentPath,
+  drawerWidth,
+}: Props) {
   const items = navItems[role];
   const homePath = getHomePath(role);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const autoCollapsed = useRef(false);
+  //collapse on small screens
+  useEffect(() => {
+    if (!isSmallScreen) {
+      autoCollapsed.current = false;
+      return;
+    }
+
+    if (!autoCollapsed.current) {
+      autoCollapsed.current = true;
+      if (open) onToggle();
+    }
+  }, [isSmallScreen, open, onToggle]);
+
+  const handleNavClick = () => {
+    if (isSmallScreen && open) onToggle();
+  };
 
   return (
     <Drawer
@@ -50,7 +78,13 @@ export default function Sidebar({ role, open, onToggle, currentPath, drawerWidth
     >
       <Box
         id="app-sidebar"
-        sx={{ p: 2, overflow: "hidden", display: "flex", flexDirection: "column", flex: 1 }}
+        sx={{
+          p: 2,
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          flex: 1,
+        }}
       >
         <Box
           sx={{
@@ -67,7 +101,13 @@ export default function Sidebar({ role, open, onToggle, currentPath, drawerWidth
               noWrap
               component={RouterLink}
               to={homePath}
-              sx={{ fontWeight: 700, flex: 1, minWidth: 0, color: "text.primary", textDecoration: "none" }}
+              sx={{
+                fontWeight: 700,
+                flex: 1,
+                minWidth: 0,
+                color: "text.primary",
+                textDecoration: "none",
+              }}
             >
               IT Service Desk
             </Typography>
@@ -80,10 +120,16 @@ export default function Sidebar({ role, open, onToggle, currentPath, drawerWidth
           {items.map((item) => {
             const Icon = item.icon;
             return (
-              <Tooltip key={item.path} title={open ? "" : item.label} placement="right" arrow>
+              <Tooltip
+                key={item.path}
+                title={open ? "" : item.label}
+                placement="right"
+                arrow
+              >
                 <ListItemButton
                   component={RouterLink}
                   to={item.path}
+                  onClick={handleNavClick}
                   selected={currentPath === item.path}
                   sx={{
                     borderRadius: 1.5,
@@ -92,7 +138,13 @@ export default function Sidebar({ role, open, onToggle, currentPath, drawerWidth
                     justifyContent: open ? "flex-start" : "center",
                   }}
                 >
-                  <ListItemIcon sx={{ minWidth: 0, mr: open ? 2 : 0, justifyContent: "center" }}>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 2 : 0,
+                      justifyContent: "center",
+                    }}
+                  >
                     <Icon fontSize="small" />
                   </ListItemIcon>
                   {open && <ListItemText primary={item.label} />}
@@ -112,7 +164,11 @@ export default function Sidebar({ role, open, onToggle, currentPath, drawerWidth
               "&:hover": { color: "text.primary" },
             }}
           >
-            {open ? <ChevronLeft fontSize="small" /> : <ChevronRight fontSize="small" />}
+            {open ? (
+              <ChevronLeft fontSize="small" />
+            ) : (
+              <ChevronRight fontSize="small" />
+            )}
           </IconButton>
         </Tooltip>
       </Box>

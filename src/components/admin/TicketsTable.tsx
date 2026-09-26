@@ -22,8 +22,6 @@ interface Props {
   onAssign?: (ticketId: string, assigneeId: string) => void;
 }
 
-// Reusable ticket list table. Pass `onAssign` only when the assignee column
-// should be editable (admin view) — leave it out to hide that column.
 export default function TicketsTable({
   tickets,
   users,

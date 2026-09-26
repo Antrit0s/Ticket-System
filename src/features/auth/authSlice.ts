@@ -6,13 +6,11 @@ export interface AuthState {
   token: string | null;
 }
 
-// Helper to safely parse user from localStorage
 function getUserFromStorage(): User | null {
   try {
     const stored = localStorage.getItem("user");
     return stored ? JSON.parse(stored) : null;
   } catch {
-    // If JSON is corrupted, clear it
     localStorage.removeItem("user");
     return null;
   }

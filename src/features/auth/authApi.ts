@@ -11,7 +11,6 @@ import type {
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // Create a new user account (email must be unique).
     signUp: builder.mutation<User, SignUpRequest>({
       async queryFn(userData, _api, _extra, baseQuery) {
         const result = await baseQuery("/users");
@@ -46,8 +45,6 @@ export const authApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["User"],
     }),
-
-    // Send an OTP to the user's email for passwordless login.
     sendLoginCode: builder.mutation<
       { user: User; emailSent: boolean },
       { email: string; role?: UserRole }
@@ -69,7 +66,7 @@ export const authApi = baseApi.injectEndpoints({
           };
         }
 
-        // Don't hand out codes to the wrong role.
+        // Don't send code unless Role match
         if (role && user.role !== role) {
           return {
             error: {
@@ -92,10 +89,9 @@ export const authApi = baseApi.injectEndpoints({
         });
         if (updated.error) return { error: updated.error };
 
-        // Don't fail the login if EmailJS isn't configured yet.
+        // Fallback for Email.js
         const emailSent = await sendOtpEmail(user.email, otp);
 
-        // Return the code too, so it's visible in dev.
         return { data: { user: updated.data as User, emailSent } };
       },
       invalidatesTags: ["User"],
@@ -129,8 +125,7 @@ export const authApi = baseApi.injectEndpoints({
               },
             };
           }
-        }
-        else if (otp) {
+        } else if (otp) {
           if (user.otp !== otp) {
             return {
               error: {
@@ -140,14 +135,13 @@ export const authApi = baseApi.injectEndpoints({
             };
           }
 
-          // Single-use: clear the code after a successful login.
+          //clear OTP so it cannot be used after login
           await baseQuery({
             url: `/users/${user.id}`,
             method: "PATCH",
             body: { otp: null },
           });
-        }
-        else {
+        } else {
           return {
             error: {
               status: 400,
@@ -156,7 +150,7 @@ export const authApi = baseApi.injectEndpoints({
           };
         }
 
-        // Don't log a user into the wrong role.
+        // user role must match before login
         if (role && user.role !== role) {
           return {
             error: {
@@ -171,7 +165,6 @@ export const authApi = baseApi.injectEndpoints({
           };
         }
 
-        // Placeholder token — a real backend would issue a JWT.
         const token = `token-${user.id}-${Date.now()}`;
 
         return { data: { user, token } };
@@ -179,8 +172,11 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["User"],
     }),
 
-    // Step 1 of "forgot password": email the user a reset code.
-    forgotPassword: builder.mutation<{ user: User; emailSent: boolean }, { email: string }>({
+    //
+    forgotPassword: builder.mutation<
+      { user: User; emailSent: boolean },
+      { email: string }
+    >({
       async queryFn({ email }, _api, _extra, baseQuery) {
         const result = await baseQuery(
           `/users?email=${encodeURIComponent(email.toLowerCase())}`,
@@ -206,7 +202,7 @@ export const authApi = baseApi.injectEndpoints({
         });
         if (updated.error) return { error: updated.error };
 
-        // Don't fail if EmailJS isn't set up yet.
+        // Fallback for Email.js
         const emailSent = await sendOtpEmail(user.email, otp);
 
         return { data: { user: updated.data as User, emailSent } };
@@ -214,7 +210,6 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["User"],
     }),
 
-    // Step 2 of "forgot password": verify the code and set a new password.
     resetPassword: builder.mutation<User, ResetPasswordRequest>({
       async queryFn({ email, otp, newPassword }, _api, _extra, baseQuery) {
         const result = await baseQuery(
