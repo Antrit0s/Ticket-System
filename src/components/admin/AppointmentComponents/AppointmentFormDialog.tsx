@@ -81,7 +81,7 @@ export default function AppointmentFormDialog({
   useEffect(() => {
     if (open) {
       if (initialAppointment) {
-        // Convert ISO scheduledAt to a local datetime string (YYYY-MM-DDTHH:mm).
+        // Format for the DateTimePicker, which expects a string in "YYYY-MM-DDTHH:mm"
         const formattedDate = dayjs(initialAppointment.scheduledAt).format(
           "YYYY-MM-DDTHH:mm",
         );
