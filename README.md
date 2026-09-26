@@ -1,4 +1,3 @@
-![Login](screenshots/login.png)
 # Enterprise IT Helpdesk & Service Management System
 
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)](#)
@@ -15,9 +14,9 @@
 ## 📸 Screenshots & Demos
 
 <!-- Add your actual project screenshots or GIFs inside an /assets directory in your repo -->
-| Admin Dashboard & Queue | Ticket Details & Audit Timeline |
+| Admin Authentication & Portal | Ticket Details & Operational Timeline |
 | :---: | :---: |
-| *(Add your screenshot here)* | *(Add your screenshot here)* |
+| ![Login View](screenshots/login.png) | *(Add ticket details screenshot here)* |
 
 ---
 
