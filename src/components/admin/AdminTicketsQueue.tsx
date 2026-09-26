@@ -42,7 +42,7 @@ export default function AdminTicketsQueue() {
 
   const admins = users.filter((adminUser) => adminUser.role === "admin");
 
-  // Newest first by default, then apply status/priority/text filters.
+  // Newest first by default, then apply filters.
   const filtered = useMemo(() => {
     const searchQuery = search.trim().toLowerCase();
     const sorted = [...tickets].sort(
@@ -67,7 +67,7 @@ export default function AdminTicketsQueue() {
     currentPage * PAGE_SIZE,
   );
 
-  // Reassign a ticket and log the change to its activity timeline.
+  // Reassign a ticket
   const handleAssign = async (ticketId: string, assigneeId: string) => {
     const result = await updateTicket({
       id: ticketId,
