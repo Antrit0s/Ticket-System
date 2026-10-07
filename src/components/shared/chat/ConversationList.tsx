@@ -12,7 +12,8 @@ import AddIcon from "@mui/icons-material/Add";
 import { useGetConversationsQuery } from "../../../features/chat/chatApi";
 import { useGetUsersQuery } from "../../../features/users/usersApi";
 import NewMessageDialog from "./NewMessageDialog";
-
+import { motion } from "framer-motion";
+import { listContainer, listItem } from "../../../lib/animations";
 interface Props {
   userId: string;
   selectedId: string | null;
@@ -63,24 +64,34 @@ export default function ConversationList({ userId, selectedId, onSelect }: Props
           <CircularProgress />
         </Box>
       ) : (
-        <List disablePadding>
-          {myConversations.map((conversation) => {
-            const peer = conversation.participants.find((participant) => participant !== userId) ?? conversation.participants[0];
-            return (
-              <ListItemButton
-                key={conversation.id}
-                selected={selectedId === conversation.id}
-                onClick={() => onSelect(conversation.id)}
-              >
-                <ListItemText
-                  primary={getUserName(peer)}
-                  secondary={conversation.lastMessage}
-                  slotProps={{ secondary: { noWrap: true } }}
-                />
-              </ListItemButton>
-            );
-          })}
-        </List>
+        <motion.div variants={listContainer} initial="hidden" animate="show">
+          <List disablePadding>
+            {myConversations.map((conversation) => {
+              const peer =
+                conversation.participants.find(
+                  (participant) => participant !== userId,
+                ) ?? conversation.participants[0];
+              return (
+                <motion.div
+                  key={conversation.id}
+                  variants={listItem}
+                  style={{ display: "block" }}
+                >
+                  <ListItemButton
+                    selected={selectedId === conversation.id}
+                    onClick={() => onSelect(conversation.id)}
+                  >
+                    <ListItemText
+                      primary={getUserName(peer)}
+                      secondary={conversation.lastMessage}
+                      slotProps={{ secondary: { noWrap: true } }}
+                    />
+                  </ListItemButton>
+                </motion.div>
+              );
+            })}
+          </List>
+        </motion.div>
       )}
 
       <NewMessageDialog

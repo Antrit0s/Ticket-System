@@ -4,16 +4,13 @@ interface Props {
   role: string;
   onStatusChange: (newStatus: string) => void;
 }
-
+import SectionCard from "./SectionCard";
 import { Box, CircularProgress, MenuItem, Select, TextField, Typography } from "@mui/material";
 
 export default function TicketAssetSection({ asset, isLoading, role, onStatusChange }: Props) {
   if (!asset) return null;
   return (
-    <Box>
-      <Typography variant="subtitle1" sx={{ mt: 3, mb: 1 }}>
-        Related Asset
-      </Typography>
+    <SectionCard title="Related Asset">
       {isLoading ? (
         <CircularProgress size={20} />
       ) : (
@@ -46,6 +43,6 @@ export default function TicketAssetSection({ asset, isLoading, role, onStatusCha
           )}
         </Box>
       )}
-    </Box>
+    </SectionCard>
   );
 }

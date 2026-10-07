@@ -10,12 +10,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../lib/hooks";
-import { useUpdateUserMutation } from "../../features/users/usersApi";
-import { userUpdated } from "../../features/auth/authSlice";
-import { getErrorMessage } from "../../lib/errorMessage";
-import type { User } from "../../types";
-import PasswordField from "./PasswordField";
+import { useAppDispatch, useAppSelector } from "../../../lib/hooks.ts";
+import { useUpdateUserMutation } from "../../../features/users/usersApi.ts";
+import type { User } from "../../../types/index.ts";
+import { getErrorMessage } from "../../../lib/errorMessage.ts";
+import { userUpdated } from "../../../features/auth/authSlice.ts";
+import PasswordField from "../ui/PasswordField.tsx";
+
 
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),

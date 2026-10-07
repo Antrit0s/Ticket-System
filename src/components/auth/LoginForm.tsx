@@ -26,7 +26,7 @@ import { getErrorMessage } from "../../lib/errorMessage";
 import { getHomePath } from "../../lib/navSidebar";
 import type { UserRole } from "../../types";
 import OtpInput from "./OtpInput";
-import PasswordField from "../shared/PasswordField";
+import PasswordField from "../shared/ui/PasswordField";
 
 const schema = z.object({
   email: z.string().email("Enter a valid email"),

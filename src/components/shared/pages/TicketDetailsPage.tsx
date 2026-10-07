@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, Typography, CircularProgress } from "@mui/material";
-import type { Appointment } from "../../types";
+import type { Appointment } from "../../../types";
 import { toast } from "react-toastify";
-import { useAppSelector } from "../../lib/hooks";
-import { getErrorMessage } from "../../lib/errorMessage";
+import { useAppSelector } from "../../../lib/hooks";
+import { getErrorMessage } from "../../../lib/errorMessage";
 import {
   useGetCategoriesQuery,
   useDeleteTicketMutation,
@@ -14,26 +14,21 @@ import {
   useLogTicketActivityMutation,
   useSendTicketMessageMutation,
   useUpdateTicketMutation,
-} from "../../features/tickets/ticketsApi";
+} from "../../../features/tickets/ticketsApi";
 import {
   useGetAssetQuery,
   useUpdateAssetMutation,
-} from "../../features/assets/assetsApi";
-import { useGetUsersQuery } from "../../features/users/usersApi";
+} from "../../../features/assets/assetsApi";
+import { useGetUsersQuery } from "../../../features/users/usersApi";
 import { useTheme } from "@mui/material/styles";
 import {
   useGetAppointmentsQuery,
   useUpdateAppointmentMutation,
-} from "../../features/appointments/appointmentsApi";
-import TicketHeader from "./ticket-details/TicketHeader";
-import TicketStatusPanel from "./ticket-details/TicketStatusPanel";
-import AssignedAdminCard from "./ticket-details/AssignedAdminCard";
-import TicketAppointmentSection from "./ticket-details/TicketAppointmentSection";
-import TicketAssetSection from "./ticket-details/TicketAssetSection";
-import ConversationPanel from "./ticket-details/ConversationPanel";
-import ReplyBox from "./ticket-details/ReplyBox";
-import ActivityTimeline from "./ticket-details/ActivityTimeline";
-import AppointmentFormDialog from "../admin/AppointmentComponents/AppointmentFormDialog.tsx";
+} from "../../../features/appointments/appointmentsApi";
+import TicketHeader from "../ticket-details/TicketHeader";
+import TicketSidebar from "../ticket-details/TicketSidebar";
+import TicketConversationArea from "../ticket-details/TicketConversationArea";
+import AppointmentFormDialog from "../../admin/AppointmentComponents/AppointmentFormDialog";
 
 type Filter = "all" | "support" | "customer";
 
@@ -75,6 +70,7 @@ export default function TicketDetailsPage() {
   const assignee = ticket?.assigneeId
     ? (users.find((user) => user.id === ticket.assigneeId) ?? undefined)
     : undefined;
+  const requester = users.find((user) => user.id === ticket?.creatorId);
   const statusLabel =
     theme.palette.customStatus[ticket?.status ?? ""]?.label ??
     ticket?.status ??
@@ -219,73 +215,43 @@ export default function TicketDetailsPage() {
           gap: { xs: 2, md: 4 },
         }}
       >
-        <Box
-          sx={{
-            width: { md: 230 },
-            flexShrink: 0,
-            borderRight: { md: 1 },
-            borderColor: "divider",
-            pr: { md: 3 },
+        <TicketSidebar
+          ticket={ticket}
+          role={role}
+          statusLabel={statusLabel}
+          assignee={assignee}
+          requester={requester}
+          ticketAppointment={ticketAppointment}
+          isLoadingAppointments={isLoadingAppointments}
+          ticketAsset={ticketAsset}
+          isLoadingAsset={isLoadingAsset}
+          users={users}
+          onChangeStatus={onChangeStatus}
+          onEditAppointment={(appointment) => {
+            setEditAppointment(appointment);
+            setAppointmentDialogOpen(true);
           }}
-        >
-          <TicketStatusPanel
-            status={ticket.status}
-            statusLabel={statusLabel}
-            role={role}
-            onChangeStatus={onChangeStatus}
-          />
-          <AssignedAdminCard assignee={assignee} />
-          <TicketAppointmentSection
-            ticketAppointment={ticketAppointment}
-            isLoading={isLoadingAppointments}
-            role={role}
-            users={users}
-            onEdit={(appointment) => {
-              setEditAppointment(appointment);
-              setAppointmentDialogOpen(true);
-            }}
-            onCancel={handleCancelAppointment}
-            onSchedule={() => {
-              setEditAppointment(null);
-              setAppointmentDialogOpen(true);
-            }}
-          />
-          {ticket.assetId && (
-            <TicketAssetSection
-              asset={
-                ticketAsset
-                  ? {
-                      id: ticketAsset.id,
-                      name: ticketAsset.name,
-                      serialNumber: ticketAsset.serialNumber,
-                      type: ticketAsset.type,
-                      status: ticketAsset.status,
-                    }
-                  : undefined
-              }
-              isLoading={isLoadingAsset}
-              role={role}
-              onStatusChange={handleAssetStatusChange}
-            />
-          )}
-        </Box>
-        <Box sx={{ flex: 1, minWidth: 0 }}>
-          <ConversationPanel
-            messages={messages}
-            filter={filter}
-            onFilterChange={(filterValue) => setFilter(filterValue)}
-            isFetchingMessages={isFetchingMessages}
-            users={users}
-          />
-          <ReplyBox
-            value={reply}
-            onChange={setReply}
-            onSend={onSendReply}
-            isSending={isSending}
-          />
-          <ActivityTimeline activity={activity} />
-        </Box>
+          onCancelAppointment={handleCancelAppointment}
+          onScheduleAppointment={() => {
+            setEditAppointment(null);
+            setAppointmentDialogOpen(true);
+          }}
+          onAssetStatusChange={handleAssetStatusChange}
+        />
+        <TicketConversationArea
+          messages={messages}
+          activity={activity}
+          filter={filter}
+          reply={reply}
+          isFetchingMessages={isFetchingMessages}
+          isSending={isSending}
+          users={users}
+          onFilterChange={setFilter}
+          onReplyChange={setReply}
+          onSendReply={onSendReply}
+        />
       </Box>
+
       <AppointmentFormDialog
         open={appointmentDialogOpen}
         onClose={() => {

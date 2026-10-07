@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import {
   Box,
   Button,
-  CircularProgress,
   FormControl,
   IconButton,
   InputLabel,
@@ -24,11 +23,16 @@ import { useGetAssetsQuery } from "../../../features/assets/assetsApi";
 import { useGetUsersQuery } from "../../../features/users/usersApi";
 import AddAssetDialog from "./AddAssetDialog";
 import EditAssetDialog from "./EditAssetDialog";
-import PaginationControls from "../../shared/PaginationControls";
+import PaginationControls from "../../shared/ui/PaginationControls.tsx";
 import type { Asset } from "../../../types";
 import AssignAssetDialog from "./AssignAssetDialog.tsx";
+import { motion } from "framer-motion";
+import { listContainer, listItem } from "../../../lib/animations";
+import TableSkeleton from "../../shared/ui/TableSkeleton.tsx";
 
 const PAGE_SIZE = 8;
+const MotionTableBody = motion.create(TableBody);
+const MotionTableRow = motion.create(TableRow);
 
 export default function AdminAssetsInventory() {
   const [search, setSearch] = useState("");
@@ -48,16 +52,19 @@ export default function AdminAssetsInventory() {
 
   const getUserName = (userId: string | null) =>
     users.find((user) => user.id === userId)?.name ?? userId;
+
   const assetTypes = [...new Set(assets.map((asset) => asset.type))];
 
   const filteredAssets = useMemo(() => {
     const searchQuery = search.trim().toLowerCase();
+
     return assets.filter((asset) => {
       const matchesSearch =
         !searchQuery ||
         asset.name.toLowerCase().includes(searchQuery) ||
         asset.serialNumber.toLowerCase().includes(searchQuery);
       const matchesType = !type || asset.type === type;
+
       return matchesSearch && matchesType;
     });
   }, [assets, search, type]);
@@ -83,6 +90,7 @@ export default function AdminAssetsInventory() {
           onChange={(event) => setSearch(event.target.value)}
           sx={{ minWidth: 200 }}
         />
+
         <FormControl size="small" sx={{ minWidth: 140 }}>
           <InputLabel>Type</InputLabel>
           <Select
@@ -98,15 +106,14 @@ export default function AdminAssetsInventory() {
             ))}
           </Select>
         </FormControl>
+
         <Button variant="outlined" onClick={() => setDialogOpen(true)}>
           Add Asset
         </Button>
       </Box>
 
       {isLoading ? (
-        <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
-          <CircularProgress />
-        </Box>
+        <TableSkeleton columns={6} rows={8} />
       ) : (
         <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
           <Table size="small">
@@ -120,9 +127,14 @@ export default function AdminAssetsInventory() {
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+
+            <MotionTableBody
+              variants={listContainer}
+              initial="hidden"
+              animate="show"
+            >
               {paginatedAssets.map((asset) => (
-                <TableRow key={asset.id} hover>
+                <MotionTableRow key={asset.id} variants={listItem} hover>
                   <TableCell>{asset.name}</TableCell>
                   <TableCell>{asset.serialNumber}</TableCell>
                   <TableCell>{asset.type}</TableCell>
@@ -139,9 +151,9 @@ export default function AdminAssetsInventory() {
                       <MoreVertIcon fontSize="small" />
                     </IconButton>
                   </TableCell>
-                </TableRow>
+                </MotionTableRow>
               ))}
-            </TableBody>
+            </MotionTableBody>
           </Table>
         </TableContainer>
       )}

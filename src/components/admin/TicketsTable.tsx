@@ -10,7 +10,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { PriorityChip, StatusChip } from "../shared/StatusBadges";
+import { PriorityChip, StatusChip } from "../shared/ui/StatusBadges";
 import type { Ticket, User } from "../../types";
 
 interface Props {

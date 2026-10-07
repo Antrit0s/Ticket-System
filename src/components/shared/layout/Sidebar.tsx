@@ -17,8 +17,8 @@ import {
   ChevronRight,
   SupportAgent as SupportAgentIcon,
 } from "@mui/icons-material";
-import { navItems, getHomePath } from "../../lib/navSidebar";
-import type { UserRole } from "../../types";
+import { navItems, getHomePath } from "../../../lib/navSidebar";
+import type { UserRole } from "../../../types";
 import { useEffect, useRef } from "react";
 
 interface Props {

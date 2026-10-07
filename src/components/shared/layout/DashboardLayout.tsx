@@ -2,10 +2,13 @@ import { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Box, Toolbar, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useAppDispatch, useAppSelector } from "../../lib/hooks";
-import { loggedOut } from "../../features/auth/authSlice";
-import Sidebar from "./Sidebar";
-import TopBar from "./TopBar";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { useAppDispatch, useAppSelector } from "../../../lib/hooks.ts";
+import { loggedOut } from "../../../features/auth/authSlice.ts";
+import TopBar from "./TopBar.tsx";
+import Sidebar from "./Sidebar.tsx";
+import { pageTransition, pageVariants } from "../../../lib/animations.ts";
 
 const EXPANDED_WIDTH = 240;
 const EXPANDED_WIDTH_MOBILE = 200;
@@ -44,9 +47,20 @@ export default function DashboardLayout() {
         currentPath={location.pathname}
         drawerWidth={drawerWidth}
       />
-      <Box component="main" sx={{ flexGrow: 1, minWidth: 0, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, minWidth: 0, p: 1 }}>
         <Toolbar />
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={pageTransition}
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </Box>
     </Box>
   );

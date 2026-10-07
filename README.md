@@ -158,6 +158,66 @@ This repository is optimized for demonstrating front-end architecture, UI execut
 
 ---
 
+## 📚 References & Resources
+
+This project was built using the following official documentation and community resources.
+
+### Core Framework & Tooling
+
+- [React 19 Documentation](https://react.dev/) — Hooks, Strict Mode, and modern patterns.
+- [Vite — Getting Started](https://vitejs.dev/guide/) — Build tooling and dev server setup.
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) — Strict typing, generics, and module augmentation.
+
+### State Management
+
+- [Redux Toolkit — Overview](https://redux-toolkit.js.org/) — `configureStore`, slices, and middleware.
+- [RTK Query — Quick Start](https://redux-toolkit.js.org/rtk-query/overview) — `createApi`, `injectEndpoints`, tag-based caching.
+- [RTK Query — Automated Re-fetching](https://redux-toolkit.js.org/rtk-query/usage/automated-refetching) — Tag invalidation patterns.
+
+### UI & Design System
+
+- [Material UI v9 Documentation](https://mui.com/material-ui/getting-started/) — Components, theming, `sx` prop.
+- [MUI Customization — Theming](https://mui.com/material-ui/customization/theming/) — `createTheme`, palette extension.
+- [MUI Switch — Customization](https://mui.com/material-ui/react-switch/#customization) — Source for `MaterialUISwitch.tsx`.
+- [MUI X Date Pickers](https://mui.com/x/react-date-pickers/getting-started/) — `DateTimePicker`, `AdapterDayjs`.
+- [Emotion — CSS-in-JS](https://emotion.sh/docs/introduction) — Underlying styling engine for MUI.
+- [Fontsource — Inter](https://fontsource.org/fonts/inter) — Self-hosted font imports.
+
+### Forms & Validation
+
+- [React Hook Form](https://react-hook-form.com/) — `useForm`, `Controller`, `useWatch`.
+- [Zod](https://zod.dev/) — Schema validation.
+- [@hookform/resolvers](https://github.com/react-hook-form/resolvers) — `zodResolver` integration.
+
+### Routing
+
+- [React Router v6](https://reactrouter.com/en/main) — Nested routes, `Outlet`, `Navigate`.
+
+### UX Enhancements
+
+- [driver.js](https://driverjs.com/docs/installation) — Onboarding tour engine.
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction/) — Toast notifications.
+
+### Backend & Services
+
+- [json-server](https://github.com/typicode/json-server) — RESTful mock backend.
+- [EmailJS](https://www.emailjs.com/docs/) — Client-side email delivery for OTP.
+
+### Deployment
+
+- [Vercel — Vite Deployment](https://vercel.com/docs/frameworks/vite) — Frontend hosting + SPA rewrites.
+- [Render — Web Services](https://render.com/docs/web-services) — Node.js backend hosting.
+
+### Design & Icons
+
+- [MUI Icons](https://mui.com/material-ui/material-icons/) — Icon set used throughout the app.
+
+### Inspiration & Patterns
+
+- ITIL v4 Incident Management workflows — basis for the ticket lifecycle.
+- Common patterns from enterprise helpdesk tools (Jira Service Management, Zendesk, Freshdesk).
+
+---
 ## 📄 License
 
 This project is licensed under the MIT License — feel free to explore, clone, and modify for learning and showcase purposes.

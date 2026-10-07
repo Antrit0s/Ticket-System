@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import AuthPage from "./components/auth/AuthPage";
-import ProtectedRoute from "./components/shared/ProtectedRoute";
-import DashboardLayout from "./components/shared/DashboardLayout";
+
 import OverviewPage from "./components/user/OverviewPage";
 import UserTicketsPage from "./components/user/UserTicketsPage";
 import TicketForm from "./components/user/TicketForm";
@@ -13,9 +12,11 @@ import AdminAppointmentsPage from "./components/admin/AppointmentComponents/Admi
 import AdminMetricsPage from "./components/admin/AdminMetricsPage";
 import AdminUsersPage from "./components/admin/AdminUsersPage";
 import ChatLayout from "./components/shared/chat/ChatLayout";
-import TicketDetailsPage from "./components/shared/TicketDetailsPage";
-import NotFoundPage from "./components/shared/NotFoundPage";
-import ProfilePage from "./components/shared/ProfilePage";
+import TicketDetailsPage from "./components/shared/pages/TicketDetailsPage";
+import ProtectedRoute from "./components/shared/gaurds/ProtectedRoute.tsx";
+import DashboardLayout from "./components/shared/layout/DashboardLayout.tsx";
+import ProfilePage from "./components/shared/pages/ProfilePage.tsx";
+import NotFoundPage from "./components/shared/gaurds/NotFoundPage.tsx";
 
 function App() {
   return (

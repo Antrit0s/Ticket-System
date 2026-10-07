@@ -7,13 +7,19 @@ interface Props {
 
 import { Box, Button, CircularProgress, TextField } from "@mui/material";
 
-export default function ReplyBox({ value, onChange, onSend, isSending }: Props) {
+export default function ReplyBox({
+  value,
+  onChange,
+  onSend,
+  isSending,
+}: Props) {
   return (
     <Box sx={{ mt: 3, display: "flex", gap: 1.5 }}>
       <TextField
         fullWidth
-        size="small"
         multiline
+        minRows={1}
+        maxRows={6}
         placeholder="Write a reply"
         value={value}
         onChange={(event) => onChange(event.target.value)}
@@ -24,7 +30,12 @@ export default function ReplyBox({ value, onChange, onSend, isSending }: Props) 
           }
         }}
       />
-      <Button variant="contained" onClick={onSend} disabled={isSending}>
+      <Button
+        variant="contained"
+        onClick={onSend}
+        disabled={isSending}
+        sx={{ height: 40, flexShrink: 0 }}
+      >
         {isSending ? <CircularProgress size={20} color="inherit" /> : "Send"}
       </Button>
     </Box>

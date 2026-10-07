@@ -4,15 +4,13 @@ interface Props {
   role: string;
   onChangeStatus: (newStatus: string) => void;
 }
-
-import { MenuItem, Select, TextField, Typography, Box } from "@mui/material";
+import SectionCard from "./SectionCard";
+import { MenuItem, Select, TextField } from "@mui/material";
 
 export default function TicketStatusPanel({ status, statusLabel, role, onChangeStatus }: Props) {
   return (
-    <Box>
-      <Typography variant="subtitle1" sx={{ mb: 1 }}>
-        Status
-      </Typography>
+    <SectionCard title="Ticket Status">
+      
       {role === "admin" ? (
         <Select
           fullWidth
@@ -33,6 +31,6 @@ export default function TicketStatusPanel({ status, statusLabel, role, onChangeS
           slotProps={{ htmlInput: { readOnly: true } }}
         />
       )}
-    </Box>
+    </SectionCard>
   );
 }

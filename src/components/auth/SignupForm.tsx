@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { useSignUpMutation } from "../../features/auth/authApi";
 import { getErrorMessage } from "../../lib/errorMessage";
-import PasswordField from "../shared/PasswordField";
+import PasswordField from "../shared/ui/PasswordField";
 
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),

@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Chip,
-  CircularProgress,
   Paper,
   Table,
   TableBody,
@@ -20,6 +19,7 @@ import { getErrorMessage } from "../../lib/errorMessage";
 import RoleChangeDialog from "./RoleChangeDialog";
 import RoleChangeConfirmDialog from "./RoleChangeConfirmDialog";
 import type { UserRole } from "../../types";
+import TableSkeleton from "../shared/ui/TableSkeleton.tsx";
 
 interface PendingChange {
   userId: string;
@@ -85,9 +85,7 @@ export default function AdminUsersPage() {
       </Box>
 
       {isLoading ? (
-        <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
-          <CircularProgress />
-        </Box>
+        <TableSkeleton columns={4} rows={6} />
       ) : (
         <TableContainer component={Paper}>
           <Table>

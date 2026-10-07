@@ -7,7 +7,7 @@ interface Props {
   onCancel: () => void;
   onSchedule: () => void;
 }
-
+import SectionCard from "./SectionCard";
 import { Box, Button, Chip, CircularProgress, Typography } from "@mui/material";
 import { statusColor } from "../../../lib/utils";
 import type { Appointment } from "../../../types";
@@ -22,19 +22,19 @@ export default function TicketAppointmentSection({
   onSchedule,
 }: Props) {
   return (
-    <Box>
-      <Typography variant="subtitle1" sx={{ mb: 1 }}>
-        Appointment
-      </Typography>
+    <SectionCard title="Appointment">
       {isLoading ? (
         <CircularProgress size={20} />
       ) : ticketAppointment ? (
         <Box sx={{ p: 2, borderRadius: 2, bgcolor: "appointment.bg" }}>
           <Typography variant="body2">
-            <strong>Date:</strong> {new Date(ticketAppointment.scheduledAt ?? "").toLocaleString()}
+            <strong>Date:</strong>{" "}
+            {new Date(ticketAppointment.scheduledAt ?? "").toLocaleString()}
           </Typography>
           <Typography variant="body2">
-            <strong>Technician:</strong> {users.find((user) => user.id === ticketAppointment?.technicianId)?.name ?? ticketAppointment?.technicianId}
+            <strong>Technician:</strong>{" "}
+            {users.find((user) => user.id === ticketAppointment?.technicianId)
+              ?.name ?? ticketAppointment?.technicianId}
           </Typography>
           <Typography variant="body2">
             <strong>Location:</strong> {ticketAppointment?.location}
@@ -44,21 +44,33 @@ export default function TicketAppointmentSection({
               <strong>Notes:</strong> {ticketAppointment?.notes}
             </Typography>
           )}
-          <Typography variant="body2">
-            <strong>Status:</strong>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 0.5 }}>
+            <Typography variant="body2" sx={{ fontWeight: 600 }}>
+              Status:
+            </Typography>
             <Chip
               size="small"
               label={ticketAppointment?.status ?? "scheduled"}
               color={statusColor(ticketAppointment?.status)}
             />
-          </Typography>
+          </Box>
           {role === "admin" &&
-            (ticketAppointment?.status === "scheduled" || !ticketAppointment?.status) && (
+            (ticketAppointment?.status === "scheduled" ||
+              !ticketAppointment?.status) && (
               <Box sx={{ mt: 2, display: "flex", gap: 1 }}>
-                <Button size="small" variant="outlined" onClick={() => onEdit(ticketAppointment)}>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={() => onEdit(ticketAppointment)}
+                >
                   Edit
                 </Button>
-                <Button size="small" variant="outlined" color="error" onClick={onCancel}>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  color="error"
+                  onClick={onCancel}
+                >
                   Cancel Appointment
                 </Button>
               </Box>
@@ -77,6 +89,6 @@ export default function TicketAppointmentSection({
           )}
         </Box>
       )}
-    </Box>
+    </SectionCard>
   );
 }

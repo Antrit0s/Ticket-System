@@ -13,12 +13,12 @@ import {
   Typography,
 } from "@mui/material";
 import { Logout as LogoutIcon } from "@mui/icons-material";
-import { initials } from "../../lib/utils";
-import { getPageTitle } from "../../lib/navTopbar";
-import { useThemeMode } from "../../lib/themeMode";
-import MaterialUISwitch from "./MaterialUISwitch";
-import UserTourButton from "../user/UserTourButton";
-import type { User } from "../../types";
+import { initials } from "../../../lib/utils";
+import { getPageTitle } from "../../../lib/navTopbar";
+import { useThemeMode } from "../../../lib/themeMode";
+import MaterialUISwitch from "../layout/MaterialUISwitch";
+import UserTourButton from "../../user/UserTourButton";
+import type { User } from "../../../types";
 
 interface Props {
   user: User;

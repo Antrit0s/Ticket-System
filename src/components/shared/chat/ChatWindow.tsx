@@ -14,13 +14,13 @@ import {
   useSendMessageMutation,
   useUpdateConversationPreviewMutation,
 } from "../../../features/chat/chatApi";
-
+import { motion } from "framer-motion";
 interface Props {
   conversationId: string;
   userId: string;
   onBack: () => void;
 }
-
+const MotionBox = motion.create(Box);
 export default function ChatWindow({ conversationId, userId, onBack }: Props) {
   const {
     data: messages = [],
@@ -103,7 +103,7 @@ export default function ChatWindow({ conversationId, userId, onBack }: Props) {
             <CircularProgress />
           </Box>
         ) : (
-          messages.map((message) => {
+          messages.map((message, index) => {
             console.log(
               "senderId:",
               message.senderId,
@@ -114,18 +114,25 @@ export default function ChatWindow({ conversationId, userId, onBack }: Props) {
               typeof userId,
             );
             const mine = String(message.senderId) === String(userId);
+            const isLast = index === messages.length - 1;
             return (
-              <Box
+              <MotionBox
                 key={message.id}
+                initial={isLast ? { opacity: 0, y: 8, scale: 0.98 } : false}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
                 sx={{
                   alignSelf: mine ? "flex-end" : "flex-start",
                   maxWidth: "75%",
+                  minWidth: 0,
                 }}
               >
                 <Paper
                   sx={{
                     p: 1.5,
                     borderRadius: 2,
+                    wordBreak: "break-word",
+                    overflowWrap: "anywhere",
                     bgcolor: message.isRead
                       ? mine
                         ? "chat.supportBg"
@@ -150,7 +157,7 @@ export default function ChatWindow({ conversationId, userId, onBack }: Props) {
                 >
                   {new Date(message.createdAt).toLocaleTimeString()}
                 </Typography>
-              </Box>
+              </MotionBox>
             );
           })
         )}
@@ -181,6 +188,7 @@ export default function ChatWindow({ conversationId, userId, onBack }: Props) {
           borderTop: 1,
           borderColor: "divider",
           display: "flex",
+          alignItems: "flex-end",
           gap: 1,
         }}
       >
@@ -188,6 +196,8 @@ export default function ChatWindow({ conversationId, userId, onBack }: Props) {
           size="small"
           fullWidth
           multiline
+          minRows={1}
+          maxRows={6}
           placeholder="Type a message"
           value={text}
           onChange={(event) => setText(event.target.value)}

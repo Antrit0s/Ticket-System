@@ -18,7 +18,7 @@ import {
   useResetPasswordMutation,
 } from "../../features/auth/authApi";
 import { getErrorMessage } from "../../lib/errorMessage";
-import PasswordField from "../shared/PasswordField";
+import PasswordField from "../shared/ui/PasswordField";
 
 const emailSchema = z.object({
   email: z.string().email("Enter a valid email"),

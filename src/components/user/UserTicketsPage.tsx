@@ -5,7 +5,6 @@ import {
   Button,
   Card,
   CardContent,
-  CircularProgress,
   FormControl,
   InputLabel,
   MenuItem,
@@ -20,8 +19,12 @@ import {
   useGetCategoriesQuery,
   useGetTicketsQuery,
 } from "../../features/tickets/ticketsApi";
-import { PriorityChip, StatusChip } from "../shared/StatusBadges";
+import { PriorityChip, StatusChip } from "../shared/ui/StatusBadges.tsx";
 import TicketForm from "./TicketForm";
+import { motion } from "framer-motion";
+import { listContainer, listItem } from "../../lib/animations";
+import CardListSkeleton from "../shared/ui/CardListSkeleton.tsx";
+
 export default function UserTicketsPage() {
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.authSlice.user);
@@ -116,9 +119,7 @@ export default function UserTicketsPage() {
         </Box>
 
         {isLoading ? (
-          <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
-            <CircularProgress />
-          </Box>
+          <CardListSkeleton count={5} />
         ) : visibleTickets.length === 0 ? (
           <Card sx={{ p: 4, textAlign: "center" }}>
             <Typography color="text.secondary">
@@ -126,53 +127,56 @@ export default function UserTicketsPage() {
             </Typography>
           </Card>
         ) : (
-          <Stack spacing={2}>
-            {visibleTickets.map((ticket) => (
-              <Card
-                key={ticket.id}
-                onClick={() => navigate(`/dashboard/tickets/${ticket.id}`)}
-                sx={{ cursor: "pointer" }}
-              >
-                <CardContent>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "flex-start",
-                      gap: 2,
-                    }}
+          <motion.div variants={listContainer} initial="hidden" animate="show">
+            <Stack spacing={2}>
+              {visibleTickets.map((ticket) => (
+                <motion.div key={ticket.id} variants={listItem}>
+                  <Card
+                    onClick={() => navigate(`/dashboard/tickets/${ticket.id}`)}
+                    sx={{ cursor: "pointer" }}
                   >
-                    <Box>
-                      <Typography variant="subtitle1">
-                        {ticket.title}
+                    <CardContent>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          gap: 2,
+                        }}
+                      >
+                        <Box>
+                          <Typography variant="subtitle1">
+                            {ticket.title}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {getCategoryName(ticket.categoryId)}
+                          </Typography>
+                        </Box>
+                        <StatusChip status={ticket.status} />
+                      </Box>
+                      <Typography variant="body2" sx={{ mt: 1 }}>
+                        {ticket.description}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {getCategoryName(ticket.categoryId)}
-                      </Typography>
-                    </Box>
-                    <StatusChip status={ticket.status} />
-                  </Box>
-                  <Typography variant="body2" sx={{ mt: 1 }}>
-                    {ticket.description}
-                  </Typography>
-                  <Box
-                    sx={{
-                      mt: 1.5,
-                      display: "flex",
-                      gap: 1,
-                      alignItems: "center",
-                    }}
-                  >
-                    <PriorityChip priority={ticket.priority} />
-                    <Typography variant="caption">
-                      #{ticket.id.toUpperCase()} · Created{" "}
-                      {new Date(ticket.createdAt).toLocaleDateString()}
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            ))}
-          </Stack>
+                      <Box
+                        sx={{
+                          mt: 1.5,
+                          display: "flex",
+                          gap: 1,
+                          alignItems: "center",
+                        }}
+                      >
+                        <PriorityChip priority={ticket.priority} />
+                        <Typography variant="caption">
+                          #{ticket.id.toUpperCase()} · Created{" "}
+                          {new Date(ticket.createdAt).toLocaleDateString()}
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </Stack>
+          </motion.div>
         )}
       </Box>
       {showForm && (

@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   Chip,
-  CircularProgress,
   Stack,
   Typography,
 } from "@mui/material";
@@ -19,6 +18,7 @@ import { useGetUsersQuery } from "../../../features/users/usersApi";
 import { getErrorMessage } from "../../../lib/errorMessage";
 import { statusColor } from "../../../lib/utils";
 import AppointmentFormDialog from "./AppointmentFormDialog.tsx";
+import CardListSkeleton from "../../shared/ui/CardListSkeleton.tsx";
 
 export default function AdminAppointmentsPage() {
   const [open, setOpen] = useState(false);
@@ -36,6 +36,7 @@ export default function AdminAppointmentsPage() {
     (a, b) =>
       new Date(a.scheduledAt).getTime() - new Date(b.scheduledAt).getTime(),
   );
+
   const handleCancel = async (appointmentId: string) => {
     const result = await updateAppointment({
       id: appointmentId,
@@ -78,9 +79,7 @@ export default function AdminAppointmentsPage() {
       </Box>
 
       {isLoading ? (
-        <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
-          <CircularProgress />
-        </Box>
+        <CardListSkeleton count={4} />
       ) : sortedAppointments.length === 0 ? (
         <Card sx={{ p: 4, textAlign: "center" }}>
           <Typography color="text.secondary">No appointments yet.</Typography>

@@ -2,14 +2,17 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
-  CircularProgress,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
+  ToggleButton,
+  ToggleButtonGroup,
   Typography,
 } from "@mui/material";
+import { ViewKanban, ViewList } from "@mui/icons-material";
+import { toast } from "react-toastify";
 import {
   useGetCategoriesQuery,
   useGetTicketsQuery,
@@ -17,8 +20,13 @@ import {
   useUpdateTicketMutation,
 } from "../../features/tickets/ticketsApi";
 import { useGetUsersQuery } from "../../features/users/usersApi";
-import PaginationControls from "../shared/PaginationControls";
+import PaginationControls from "../shared/ui/PaginationControls.tsx";
 import TicketsTable from "./TicketsTable.tsx";
+import AdminTicketsKanban from "./AdminTicketsKanban.tsx";
+import TableSkeleton from "../shared/ui/TableSkeleton.tsx";
+import { getErrorMessage } from "../../lib/errorMessage.ts";
+import type { Ticket } from "../../types/index.ts";
+import KanbanSkeleton from "./KanbanSkeleton.tsx";
 
 const PAGE_SIZE = 8;
 
@@ -29,6 +37,7 @@ export default function AdminTicketsQueue() {
   const [search, setSearch] = useState("");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [page, setPage] = useState(1);
+  const [view, setView] = useState<"table" | "kanban">("table");
 
   useEffect(() => setPage(1), [status, priority, search]);
 
@@ -42,7 +51,7 @@ export default function AdminTicketsQueue() {
 
   const admins = users.filter((adminUser) => adminUser.role === "admin");
 
-  // Newest first by default, then apply status/priority/text filters.
+  // Newest first by default, then apply filters.
   const filtered = useMemo(() => {
     const searchQuery = search.trim().toLowerCase();
     const sorted = [...tickets].sort(
@@ -67,7 +76,7 @@ export default function AdminTicketsQueue() {
     currentPage * PAGE_SIZE,
   );
 
-  // Reassign a ticket and log the change to its activity timeline.
+  // Reassign a ticket
   const handleAssign = async (ticketId: string, assigneeId: string) => {
     const result = await updateTicket({
       id: ticketId,
@@ -80,11 +89,61 @@ export default function AdminTicketsQueue() {
     }
   };
 
+  // Drag-and-drop status update
+  const handleStatusChange = async (
+    ticketId: string,
+    newStatus: Ticket["status"],
+  ) => {
+    const currentTicket = tickets.find((t) => t.id === ticketId);
+    if (!currentTicket || currentTicket.status === newStatus) return;
+
+    const result = await updateTicket({
+      id: ticketId,
+      patch: { status: newStatus },
+    });
+
+    if (result.error) {
+      toast.error(getErrorMessage(result.error));
+      return;
+    }
+
+    const formatStatus = (s: string) => s.replace("_", " ");
+    await logActivity({
+      ticketId,
+      action: `Status changed from ${formatStatus(currentTicket.status)} to ${formatStatus(newStatus)} via Board`,
+    });
+    toast.success(`Ticket moved to ${formatStatus(newStatus)}`);
+  };
+
   return (
     <Box>
-      <Typography variant="h1" sx={{ mb: 3 }}>
-        Tickets Queue
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 2,
+          mb: 3,
+          flexWrap: "wrap",
+        }}
+      >
+        <Typography variant="h1">Tickets Queue</Typography>
+        <ToggleButtonGroup
+          size="small"
+          exclusive
+          value={view}
+          onChange={(_event, newView) => newView && setView(newView)}
+        >
+          <ToggleButton value="table" sx={{ gap: 0.5 }}>
+            <ViewList fontSize="small" />
+            Table
+          </ToggleButton>
+          <ToggleButton value="kanban" sx={{ gap: 0.5 }}>
+            <ViewKanban fontSize="small" />
+            Board
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </Box>
 
       <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
         <TextField
@@ -138,10 +197,12 @@ export default function AdminTicketsQueue() {
       </Box>
 
       {isLoading ? (
-        <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
-          <CircularProgress />
-        </Box>
-      ) : (
+        view === "table" ? (
+          <TableSkeleton columns={7} rows={8} />
+        ) : (
+          <KanbanSkeleton />
+        )
+      ) : view === "table" ? (
         <TicketsTable
           tickets={paginatedTickets}
           users={users}
@@ -150,14 +211,26 @@ export default function AdminTicketsQueue() {
           onTicketClick={(ticketId) => navigate(`/admin/tickets/${ticketId}`)}
           onAssign={handleAssign}
         />
+      ) : (
+        <AdminTicketsKanban
+          tickets={filtered}
+          onTicketClick={(ticketId) => navigate(`/admin/tickets/${ticketId}`)}
+          getUserName={(id) => users.find((u) => u.id === id)?.name ?? id}
+          getCategoryName={(id) =>
+            categories.find((c) => c.id === id)?.name ?? "General"
+          }
+          onStatusChange={handleStatusChange}
+        />
       )}
 
-      <PaginationControls
-        total={filtered.length}
-        currentPage={currentPage}
-        pageSize={PAGE_SIZE}
-        onPageChange={setPage}
-      />
+      {view === "table" && (
+        <PaginationControls
+          total={filtered.length}
+          currentPage={currentPage}
+          pageSize={PAGE_SIZE}
+          onPageChange={setPage}
+        />
+      )}
     </Box>
   );
 }

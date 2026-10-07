@@ -4,15 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-  "start": "concurrently \"npm run dev\" \"npm run server\"",
-  "dev:all": "concurrently \"npm run dev\" \"npm run server\"",
-  "dev": "vite",
-  "server": "json-server --watch db.json --port 3000",
-  "server:render": "json-server db.json --host 0.0.0.0 --port $PORT",
-  "build": "tsc -b && vite build",
-  "lint": "eslint .",
-  "preview": "vite preview"
-},
+    "start": "concurrently \"npm run dev\" \"npm run server\"",
+    "dev:all": "concurrently \"npm run dev\" \"npm run server\"",
+    "dev": "vite",
+    "server": "json-server --watch db.json --port 3000",
+    "server:render": "json-server db.json --host 0.0.0.0 --port $PORT",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@emotion/react": "^11.14.0",
@@ -26,6 +26,7 @@
     "@reduxjs/toolkit": "^2.12.0",
     "dayjs": "^1.11.23",
     "driver.js": "^1.8.0",
+    "framer-motion": "^14.0.0",
     "i": "^0.3.7",
     "npm": "^12.0.2",
     "react": "^19.2.8",

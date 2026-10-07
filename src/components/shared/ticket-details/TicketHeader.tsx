@@ -15,7 +15,7 @@ interface Props {
 import { Box, Button, Chip, IconButton, Typography } from "@mui/material";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import type { User, Ticket } from "../../../types";
-import { StatusChip } from "../StatusBadges";
+import { StatusChip } from "../ui/StatusBadges";
 
 export default function TicketHeader({
   ticket,

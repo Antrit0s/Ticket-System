@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useAppSelector } from "../../lib/hooks";
-import { getHomePath } from "../../lib/navSidebar";
-import type { UserRole } from "../../types";
+import type { UserRole } from "../../../types/index.ts";
+import { useAppSelector } from "../../../lib/hooks.ts";
+import { getHomePath } from "../../../lib/navSidebar.ts";
+
 
 interface Props {
   allowedRoles?: UserRole[];
