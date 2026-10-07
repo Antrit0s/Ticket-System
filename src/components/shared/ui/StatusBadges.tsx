@@ -1,5 +1,5 @@
 import { Chip, useTheme } from "@mui/material";
-import type { Ticket } from "../../types";
+import type { Ticket } from "../../../types/index.ts";
 
 export function StatusChip({ status }: { status: Ticket["status"] }) {
   const theme = useTheme();
